@@ -84,13 +84,18 @@ export default function ChatwithKYemon() {
   };
 
   return (
-    <div className="flex flex-col h-screen p-4 bg-stone-950 text-white">
+    <div className="flex flex-col h-screen bg-stone-950 text-white">
+      {/* Header */}
+      <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
+        <h1 className="text-xl font-bold tracking-tight">Kyemon Ache Chat</h1>
+        {/* You can add a logo or user menu here if needed */}
+      </header>
       {rateLimitReached && (
         <div className="mb-4 p-3 bg-red-600 text-white rounded-lg text-center">
           Rate limit reached. You can only send 15 messages per session.
         </div>
       )}
-      {/* Chat messages */}
+  {/* Chat messages */}
       <div className="flex-1 overflow-y-auto space-y-4 mb-4 px-2">
         {messages.map((message, i) => (
           <ChatMessage
@@ -107,11 +112,11 @@ export default function ChatwithKYemon() {
       </div>
 
       {/* Input box */}
-      <div className="bottom-2">
-      <ChatInputDemo
-        onSubmit={handleSubmit}
-        placeholder="Talk with Kyemon..."
-      />
+      <div className="">
+        <ChatInputDemo
+          onSubmit={handleSubmit}
+          placeholder="Talk with Kyemon..."
+        />
       </div>
     </div>
   );
