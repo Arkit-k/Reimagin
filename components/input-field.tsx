@@ -33,23 +33,24 @@ export function ChatInputDemo({ onSubmit, placeholder }: ChatInputDemoProps) {
 	};
 
 			return (
-				<div className="sticky bottom-0 w-full px-2 sm:px-4 md:px-6 md:w-[600px] lg:m-auto bg-transparent pb-4">
-					<ChatMessageArea>
-						<ChatInput
-							variant="default"
-							value={value}
-							onChange={(e) => setValue(e.target.value)}
-							onSubmit={handleSubmit}
-							loading={isLoading}
-							onStop={() => setIsLoading(false)}
-						>
-							<ChatInputTextArea
-								placeholder="Type a message..."
-								className="flex-1 bg-transparent px-2 py-2 text-sm text-white placeholder:text-gray-400"
-							/>
-							<ChatInputSubmit />
-						</ChatInput>
-					</ChatMessageArea>
-				</div>
+				<div className="fixed bottom-0 left-0 right-0 w-full px-2 sm:px-4 md:px-6 bg-transparent pb-4">
+  <div className="mx-auto w-full md:w-[600px]">
+    <ChatInput
+      variant="default"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onSubmit={handleSubmit}
+      loading={isLoading}
+      onStop={() => setIsLoading(false)}
+    >
+      <ChatInputTextArea
+        placeholder="Type a message..."
+        className="flex-1 bg-transparent px-2 py-2 text-sm text-white placeholder:text-gray-400"
+      />
+      <ChatInputSubmit />
+    </ChatInput>
+  </div>
+</div>
+
 	);
 }
