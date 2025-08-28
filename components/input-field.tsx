@@ -33,8 +33,8 @@ export function ChatInputDemo({ onSubmit, placeholder }: ChatInputDemoProps) {
 	};
 
 			return (
-				<div className="fixed bottom-0 left-0 right-0 w-full px-2 sm:px-4 md:px-6 bg-transparent pb-4">
-  <div className="mx-auto w-full md:w-[600px]">
+	<div className="fixed bottom-0 left-0 right-0 w-full px-2 sm:px-4 md:px-6 bg-transparent pb-4">
+       <div className="mx-auto w-full md:w-[600px]">
     <ChatInput
       variant="default"
       value={value}

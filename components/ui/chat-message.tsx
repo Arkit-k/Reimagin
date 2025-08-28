@@ -6,15 +6,15 @@ import React, { type ReactNode } from "react";
 
 const chatMessageVariants = cva("flex gap-4 w-100", {
        variants: {
-	       variant: {
-		       default: "",
-		       bubble: "max-w-2xl w-auto min-w-[120px] mx-auto mb-2",
-		       full: "p-5",
-	       },
-	       type: {
-		       incoming: "justify-start",
-		       outgoing: "justify-end",
-	       },
+       variant: {
+	       default: "",
+	       bubble: "max-w-2xl w-auto min-w-[120px] mx-auto mb-2",
+	       full: "p-5",
+       },
+       type: {
+	       incoming: "justify-start",
+	       outgoing: "justify-end",
+       },
        },
 	compoundVariants: [
 		{
