@@ -91,10 +91,10 @@ export default function ChatwithKYemon() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-stone-950 text-white">
+    <div className="flex flex-col h-screen bg-stone-900 text-white">
       {/* Header */}
       <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">Kyemon Ache Chat</h1>
+        <h1 className="text-xl font-bold tracking-tight">Imagine if </h1>
       </header>
 
       {rateLimitReached && (
@@ -113,9 +113,12 @@ export default function ChatwithKYemon() {
             type={message.role === "user" ? "outgoing" : "incoming"}
             variant="bubble"
           >
-            {message.role !== "user" && <ChatMessageAvatar />}
+              {message.role !== "user" ? (
+                <ChatMessageAvatar imageSrc="/henry.png" />
+              ) : (
+                <ChatMessageAvatar />
+              )}
             <ChatMessageContent content={message.text} />
-            {message.role === "user" && <ChatMessageAvatar />}
           </ChatMessage>
         ))}
         {/* Dummy div for auto-scroll */}
@@ -123,7 +126,7 @@ export default function ChatwithKYemon() {
       </div>
 
       {/* Fixed Input */}
-      <div className="fixed bottom-0 left-0 right-0 px-2 sm:px-4 md:px-6 bg-stone-950 pb-4">
+  <div className="fixed bottom-0 left-0 right-0 px-2 sm:px-4 md:px-6 bg-stone-900 pb-4 border-none shadow-none">
         <div className="mx-auto w-full md:w-[600px]">
           <ChatInputDemo onSubmit={handleSubmit} placeholder="Talk with Kyemon..." />
         </div>
