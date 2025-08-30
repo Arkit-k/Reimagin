@@ -2,22 +2,28 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { ShineBorder } from "../magicui/shine-border";
 import { ANIME_CHARACTERS } from "@/system-prompts/anime-prompts";
+import { Fiction_CHARACTERS as FICTION_CHARACTERS } from "@/system-prompts/fiction-prompts";
+import { Tweet_CHARACTERS as XOG_CHARACTERS } from "@/system-prompts/x-prompts";
 import { cn } from "@/lib/utils";
 import { useTextareaResize } from "@/hooks/use-textarea-resize";
 import { ArrowUpIcon } from "lucide-react";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
-import { AnimeSelect } from "./dropdown";
+import { AnimeSelect, FictionSelect, XogSelect } from "./dropdown";
 
 interface ChatInputContextValue {
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
-  onSubmit?: () => void;
+  onSubmit?: (prompt: string) => void;
   loading?: boolean;
   onStop?: () => void;
   variant?: "default" | "unstyled";
   rows?: number;
+  selectedCharacterId?: string | null;
+  onCharacterSelect?: (id: string) => void;
+  selectType?: "anime" | "fiction" | "xog";
 }
 
 const ChatInputContext = createContext<ChatInputContextValue>({});
@@ -27,6 +33,7 @@ interface ChatInputProps extends Omit<ChatInputContextValue, "variant"> {
   className?: string;
   variant?: "default" | "unstyled";
   rows?: number;
+  selectType?: "anime" | "fiction" | "xog";
 }
 
 function ChatInput({
@@ -39,6 +46,9 @@ function ChatInput({
   loading,
   onStop,
   rows = 1,
+  selectedCharacterId,
+  onCharacterSelect,
+  selectType = "anime",
 }: ChatInputProps) {
   const contextValue: ChatInputContextValue = {
     value,
@@ -48,6 +58,9 @@ function ChatInput({
     onStop,
     variant,
     rows,
+    selectedCharacterId,
+    onCharacterSelect,
+    selectType,
   };
 
   return (
@@ -55,11 +68,12 @@ function ChatInput({
       <div
         className={cn(
           variant === "default" &&
-            "flex flex-col items-end w-full p-2 rounded-2xl border border-input bg-stone-800 focus-within:ring-1 focus-within:ring-ring focus-within:outline-none",
+            "flex flex-col items-end w-full p-2 rounded-2xl bg-stone-800 focus-within:ring-1 focus-within:ring-ring focus-within:outline-none",
           variant === "unstyled" && "flex items-start gap-2 w-full",
           className
         )}
       >
+              
         {children}
       </div>
     </ChatInputContext.Provider>
@@ -99,11 +113,12 @@ function ChatInputTextArea({
     if (e.key === "Enter" && !e.shiftKey) {
       if (!value || value.trim().length === 0) return;
       e.preventDefault();
-      onSubmit();
+      onSubmit?.(value);
     }
   };
 
   return (
+    
     <Textarea
       ref={textareaRef}
       {...props}
@@ -140,10 +155,23 @@ function ChatInputSubmit({
   const loading = loadingProp ?? context.loading;
   const onStop = onStopProp ?? context.onStop;
   const onSubmit = onSubmitProp ?? context.onSubmit;
+  const selectedCharacterId = context.selectedCharacterId;
+  const onCharacterSelect = context.onCharacterSelect;
+  const selectType = context.selectType ?? "anime";
 
-  // New state for selected character
-  const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(null);
-  const selectedCharacter = ANIME_CHARACTERS.find(
+  const getCharacters = () => {
+    switch (selectType) {
+      case "fiction":
+        return FICTION_CHARACTERS;
+      case "xog":
+        return XOG_CHARACTERS;
+      default:
+        return ANIME_CHARACTERS;
+    }
+  };
+
+  const characters = getCharacters();
+  const selectedCharacter = characters.find(
     (c) => c.id === selectedCharacterId
   );
 
@@ -180,8 +208,14 @@ function ChatInputSubmit({
 
   return (
     <div className="flex items-center justify-between gap-4 w-full">
-      {/* Anime character dropdown */}
-      <AnimeSelect onSelect={(id) => setSelectedCharacterId(id)} />
+      {/* Character dropdown */}
+      {selectType === "fiction" ? (
+        <FictionSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+      ) : selectType === "xog" ? (
+        <XogSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+      ) : (
+        <AnimeSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+      )}
 
       {/* Submit / Arrow Button */}
       <Button
@@ -193,8 +227,9 @@ function ChatInputSubmit({
         onClick={(event) => {
           event.preventDefault();
           if (!isDisabled && selectedCharacter) {
+            const finalPrompt = `${selectedCharacter.systemPrompt}\n${context.value}`;
             console.log("Selected system prompt:", selectedCharacter.systemPrompt);
-            onSubmit?.();
+            onSubmit?.(finalPrompt);
           }
         }}
         {...props}

@@ -1,18 +1,19 @@
 'use client';
 import React, { useState, useEffect, useRef } from "react";
 import { ChatInputDemo } from "@/components/input-field";
+
 import {
   ChatMessage,
   ChatMessageAvatar,
   ChatMessageContent,
 } from "@/components/ui/chat-message";
 import { ANIME_CHARACTERS, type AnimeCharacter } from "@/system-prompts/anime-prompts";
-import { AnimeSelect } from "@/components/ui/dropdown"; // your dropdown component
+
 
 export default function ChatwithKYemon() {
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]); // default
+  const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]); 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto scroll
@@ -29,6 +30,11 @@ export default function ChatwithKYemon() {
       localStorage.removeItem("chat_rate_limit_expiry");
     }
   }, []);
+
+  // Clear chat when character changes
+  useEffect(() => {
+    setMessages([]);
+  }, [selectedCharacter.id]);
 
   const handleSubmit = async (prompt: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
@@ -52,7 +58,7 @@ export default function ChatwithKYemon() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: prompt,
-        systemPrompt: selectedCharacter.systemPrompt, // <-- dynamic
+        systemPrompt: selectedCharacter.systemPrompt,
       }),
     });
 
@@ -95,7 +101,6 @@ export default function ChatwithKYemon() {
     <div className="flex flex-col h-screen bg-stone-900 text-white">
       <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
-        {/* Dropdown to select character */}
       </header>
 
       {rateLimitReached && (
@@ -104,35 +109,58 @@ export default function ChatwithKYemon() {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto px-2 sm:px-4 md:px-6 pt-6 pb-28">
-        <div className="mx-auto w-full md:w-[600px]">
-          {messages.map((message, i) => (
-            <ChatMessage
-              key={i}
-              id={String(i)}
-              type={message.role === "user" ? "outgoing" : "incoming"}
-              variant="bubble"
-            >
-              {message.role !== "user" ? (
-                <ChatMessageAvatar imageSrc={selectedCharacter.image} />
-              ) : (
-                <ChatMessageAvatar />
-              )}
-              <ChatMessageContent content={message.text} />
-            </ChatMessage>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
-
-        <div className="fixed bottom-0 left-0 right-0 px-2 sm:px-4 md:px-6 bg-stone-900 pb-4 border-none shadow-none">
-          <div className="mx-auto w-full md:w-[600px]">
+     {messages.length === 0 ? (
+        <div className="flex flex-1 items-center justify-center px-4">
+          <div className="w-full max-w-[600px]">
             <ChatInputDemo
               onSubmit={handleSubmit}
               placeholder={`Talk with ${selectedCharacter.name}...`}
+              isCentered
+              selectedCharacterId={selectedCharacter.id}
+              onCharacterSelect={(id) => setSelectedCharacter(ANIME_CHARACTERS.find(c => c.id === id) || ANIME_CHARACTERS[0])}
+              selectType="anime"
             />
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <>
+          {/* Messages area */}
+          <div className="flex-1 overflow-y-auto px-2 sm:px-4 md:px-6 pt-6 pb-28">
+            <div className="mx-auto w-full md:w-[600px]">
+              {messages.map((message, i) => (
+                <ChatMessage
+                  key={i}
+                  id={String(i)}
+                  type={message.role === "user" ? "outgoing" : "incoming"}
+                  variant="bubble"
+                >
+                  {message.role !== "user" ? (
+                    <ChatMessageAvatar imageSrc={selectedCharacter.image} />
+                  ) : (
+                    <ChatMessageAvatar />
+                  )}
+                  <ChatMessageContent content={message.text} />
+                </ChatMessage>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+
+          {/* Input fixed at bottom */}
+          <div className="fixed bottom-0 left-0 right-0 px-2 sm:px-4 md:px-6 bg-stone-900 pb-4 border-none shadow-none">
+            <div className="mx-auto w-full md:w-[600px]">
+              <ChatInputDemo
+                onSubmit={handleSubmit}
+                placeholder={`Talk with ${selectedCharacter.name}...`}
+                selectedCharacterId={selectedCharacter.id}
+                onCharacterSelect={(id) => setSelectedCharacter(ANIME_CHARACTERS.find(c => c.id === id) || ANIME_CHARACTERS[0])}
+                selectType="anime"
+              />
+            </div>
+          </div>
+        </>
+      )}
+                        
+          </div>
   );
 }
