@@ -73,7 +73,7 @@ function ChatInput({
           className
         )}
       >
-              
+
         {children}
       </div>
     </ChatInputContext.Provider>
