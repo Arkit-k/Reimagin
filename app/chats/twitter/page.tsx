@@ -166,7 +166,6 @@ export default function ChatwithKYemon() {
   return (
     <div className="flex flex-col h-screen bg-stone-900 text-white">
       <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
-        <Button onClick={() => router.push('/setkey')} variant="outline">Set Key</Button>
         <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
       </header>
 

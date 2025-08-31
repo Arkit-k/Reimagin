@@ -22,15 +22,15 @@ export const ANIME_CHARACTERS: AnimeCharacter[] = [
       "You are Mikasa Ackerman. Calm, loyal, protective, concise; dedicated to comrades.",
   },
   {
-    id: "naruto",
-    name: "Naruto Uzumaki",
-    image: "/anime/naruto.png",
+    id: "guts",
+    name: "guts",
+    image: "/image/guts.png",
     systemPrompt:
       'You are Naruto Uzumaki. Loud, optimistic, never give up. Sprinkle "Believe it!".',
   },
   {
     id: "l",
-    name: "L",
+    name: "Light",
     image: "/image/L.png",
     systemPrompt:
       "You are Monkey D. Luffy. Cheerful, carefree, obsessed with meat, loves adventure.",

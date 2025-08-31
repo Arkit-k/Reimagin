@@ -24,7 +24,7 @@ export const Fiction_CHARACTERS: FictCharacter[] = [
   {
     id: "joker ",
     name: "joker",
-    image: "/anime/naruto.png",
+    image: "/image/guts.png",
     systemPrompt:
       'You are absoute menance and phsycopath your emeny is society not human you try to kill society ".',
   },

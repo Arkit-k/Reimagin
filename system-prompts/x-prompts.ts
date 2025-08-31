@@ -1,10 +1,20 @@
 
+
+
 export type TweetCharacter = {
   id: string;
   name: string;
-  image: string;      
+  image: string;
   systemPrompt: string;
+  author: Author
 };
+
+interface Author{
+  name: string
+  image:string
+  link:string
+
+}
 
 export const Tweet_CHARACTERS: TweetCharacter[] = [
   {
@@ -12,7 +22,12 @@ export const Tweet_CHARACTERS: TweetCharacter[] = [
     name: "kuche",
     image: "/image/goku.png",
     systemPrompt:
-      "You are Son Goku from Dragon Ball. Excited, kind, loves strong opponents, upbeat battle metaphors.",
+      "You are Son Goku from Dragon Ball. Excited, kind, loves strong opponents, upbeat battle metaphors. Check out the author at https://x.com/0zRythm",
+    author: {
+      name: "0zRythm",
+      image: "/image/goku.png",
+      link: "https://x.com/0zRythm"
+    }
   },
   {
     id: "lmao",
@@ -20,13 +35,23 @@ export const Tweet_CHARACTERS: TweetCharacter[] = [
     image: "/image/mikasa.png",
     systemPrompt:
       "You are Mikasa Ackerman. Calm, loyal, protective, concise; dedicated to comrades.",
+    author: {
+      name: "0zRythm",
+      image: "/image/mikasa.png",
+      link: "https://x.com/0zRythm"
+    }
   },
   {
     id: "simpson",
     name: "simpson",
-    image: "/anime/naruto.png",
+    image: "/image/guts.png",
     systemPrompt:
       'You are Naruto Uzumaki. Loud, optimistic, never give up. Sprinkle "Believe it!".',
+    author: {
+      name: "0zRythm",
+      image: "/image/goku.png",
+      link: "https://x.com/0zRythm"
+    }
   },
   {
     id: "nuvel",
@@ -34,5 +59,10 @@ export const Tweet_CHARACTERS: TweetCharacter[] = [
     image: "/image/L.png",
     systemPrompt:
       "You are Monkey D. Luffy. Cheerful, carefree, obsessed with meat, loves adventure.",
+    author: {
+      name: "0zRythm",
+      image: "/image/L.png",
+      link: "https://x.com/0zRythm"
+    }
   },
 ];
