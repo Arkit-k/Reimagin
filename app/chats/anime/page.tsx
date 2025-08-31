@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
+import { toast } from 'sonner';
 
 import {
   ChatMessage,
@@ -46,65 +47,119 @@ export default function ChatwithKYemon() {
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
+
+    // API Key validation
+    if (!apiKey) {
+      toast.error('Please set your Google Gemini API key first.', {
+        description: 'Click the "Set Key" button to configure your API key.',
+        action: {
+          label: 'Set Key',
+          onClick: () => router.push('/setkey'),
+        },
+      });
+      return;
+    }
+
+    // Validate API key format
+    if (!/^AIza[0-9A-Za-z-_]{35}$/.test(apiKey)) {
+      toast.error('Invalid API key format.', {
+        description: 'Please check your Google Gemini API key.',
+        action: {
+          label: 'Update Key',
+          onClick: () => router.push('/setkey'),
+        },
+      });
+      return;
+    }
+
     const userMsgCount = messages.filter((m) => m.role === "user").length;
     if (userMsgCount >= 5 && !apiKey) {
       setRateLimitReached(true);
       localStorage.setItem("chat_rate_limit_expiry", String(Date.now() + 3 * 60 * 60 * 1000));
-      if (typeof window !== "undefined") {
-        import("sonner").then(({ toast }) => {
-          toast("Rate limit reached. You can send messages again in 3 hours.");
-        });
-      }
+      toast.error("Rate limit reached. You can send messages again in 3 hours.");
       return;
     }
 
     setMessages((m) => [...m, { role: "user", text: prompt }]);
 
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: prompt,
-        systemPrompt: selectedCharacter.systemPrompt,
-        apiKey: apiKey || undefined,
-      }),
-    });
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: prompt,
+          systemPrompt: selectedCharacter.systemPrompt,
+          apiKey: apiKey,
+        }),
+      });
 
-    // Increment message count after successful API call
-    incrementMessageCount();
-
-    const reader = res.body?.getReader();
-    if (!reader) return;
-
-    const decoder = new TextDecoder();
-    let kymonText = "";
-    let buffer = "";
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split(/\r?\n/);
-      buffer = lines.pop() || "";
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed.startsWith("data:")) continue;
-        const jsonStr = trimmed.replace(/^data:\s*/, "");
-        if (jsonStr === "[DONE]") continue;
-        try {
-          const event = JSON.parse(jsonStr);
-          if (event.type === "text-delta" && typeof event.delta === "string") {
-            kymonText += event.delta;
-            setMessages((prev) => {
-              const last = prev[prev.length - 1];
-              if (last?.role === "kyemon") {
-                return [...prev.slice(0, -1), { role: "kyemon", text: kymonText }];
-              } else {
-                return [...prev, { role: "kyemon", text: kymonText }];
-              }
-            });
-          }
-        } catch {}
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        if (res.status === 401) {
+          toast.error('API key authentication failed.', {
+            description: 'Please check your Google Gemini API key.',
+            action: {
+              label: 'Update Key',
+              onClick: () => router.push('/setkey'),
+            },
+          });
+        } else if (res.status === 429) {
+          toast.error('Rate limit exceeded.', {
+            description: 'Please try again later.',
+          });
+        } else {
+          toast.error('Failed to send message.', {
+            description: errorData.message || 'Please try again.',
+          });
+        }
+        // Remove the user message if API call failed
+        setMessages((prev) => prev.slice(0, -1));
+        return;
       }
+
+      // Increment message count after successful API call
+      incrementMessageCount();
+
+      const reader = res.body?.getReader();
+      if (!reader) return;
+
+      const decoder = new TextDecoder();
+      let kymonText = "";
+      let buffer = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split(/\r?\n/);
+        buffer = lines.pop() || "";
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith("data:")) continue;
+          const jsonStr = trimmed.replace(/^data:\s*/, "");
+          if (jsonStr === "[DONE]") continue;
+          try {
+            const event = JSON.parse(jsonStr);
+            if (event.type === "text-delta" && typeof event.delta === "string") {
+              kymonText += event.delta;
+              setMessages((prev) => {
+                const last = prev[prev.length - 1];
+                if (last?.role === "kyemon") {
+                  return [...prev.slice(0, -1), { role: "kyemon", text: kymonText }];
+                } else {
+                  return [...prev, { role: "kyemon", text: kymonText }];
+                }
+              });
+            }
+          } catch {}
+        }
+      }
+    } catch (error) {
+      console.error('Chat submission error:', error);
+      toast.error('Failed to send message.', {
+        description: 'Please check your connection and try again.',
+      });
+      // Remove the user message if there was an error
+      setMessages((prev) => prev.slice(0, -1));
     }
   };
 
