@@ -54,7 +54,7 @@ export function AnimeSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent side="top">
         <SelectGroup>
           <SelectLabel>Anime Characters</SelectLabel>
           {ANIME_CHARACTERS.map((char) => (
@@ -108,7 +108,7 @@ export function FictionSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent side="top">
         <SelectGroup>
           <SelectLabel>Fiction Characters</SelectLabel>
           {FICTION_CHARACTERS.map((char) => (
@@ -162,7 +162,7 @@ export function XogSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent side="top">
         <SelectGroup>
           <SelectLabel>X og Characters</SelectLabel>
           {XOG_CHARACTERS.map((char) => (

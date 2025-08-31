@@ -1,5 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 
 import {
@@ -12,6 +14,7 @@ import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 
 
 export default function ChatwithKYemon() {
+  const router = useRouter();
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<TweetCharacter>(XOG_CHARACTERS[0]);
@@ -26,7 +29,8 @@ export default function ChatwithKYemon() {
   // Rate limit
   useEffect(() => {
     const expiry = localStorage.getItem("chat_rate_limit_expiry");
-    if (expiry && Date.now() < Number(expiry)) setRateLimitReached(true);
+    const apiKey = localStorage.getItem('geminiApiKey');
+    if (expiry && Date.now() < Number(expiry) && !apiKey) setRateLimitReached(true);
     else if (expiry) {
       setRateLimitReached(false);
       localStorage.removeItem("chat_rate_limit_expiry");
@@ -41,8 +45,9 @@ export default function ChatwithKYemon() {
   const handleSubmit = async (prompt: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
 
+    const apiKey = localStorage.getItem('geminiApiKey');
     const userMsgCount = messages.filter((m) => m.role === "user").length;
-    if (userMsgCount >= 5) {
+    if (userMsgCount >= 5 && !apiKey) {
       setRateLimitReached(true);
       localStorage.setItem("chat_rate_limit_expiry", String(Date.now() + 3 * 60 * 60 * 1000));
       if (typeof window !== "undefined") {
@@ -55,7 +60,6 @@ export default function ChatwithKYemon() {
 
     setMessages((m) => [...m, { role: "user", text: prompt }]);
 
-    const apiKey = localStorage.getItem('geminiApiKey');
     const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -107,6 +111,7 @@ export default function ChatwithKYemon() {
   return (
     <div className="flex flex-col h-screen bg-stone-900 text-white">
       <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
+        <Button onClick={() => router.push('/setkey')} variant="outline">Set Key</Button>
         <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
       </header>
 
@@ -117,18 +122,19 @@ export default function ChatwithKYemon() {
       )}
 
      {messages.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center px-4">
-          <div className="w-full max-w-[600px]">
-            <ChatInputDemo
-              onSubmit={handleSubmit}
-              placeholder={`Talk with ${selectedCharacter.name}...`}
-              isCentered
-              selectedCharacterId={selectedCharacter.id}
-              onCharacterSelect={(id) => setSelectedCharacter(XOG_CHARACTERS.find(c => c.id === id) || XOG_CHARACTERS[0])}
-              selectType="xog"
-            />
-          </div>
-        </div>
+       <div className="flex flex-1 items-center justify-center px-4">
+         <div className="w-full max-w-[600px] text-center">
+           <h2 className="text-2xl font-bold text-white mb-4">Chat with your favorite Twitter personality</h2>
+           <ChatInputDemo
+             onSubmit={handleSubmit}
+             placeholder={`Talk with ${selectedCharacter.name}...`}
+             isCentered
+             selectedCharacterId={selectedCharacter.id}
+             onCharacterSelect={(id) => setSelectedCharacter(XOG_CHARACTERS.find(c => c.id === id) || XOG_CHARACTERS[0])}
+             selectType="xog"
+           />
+         </div>
+       </div>
       ) : (
         <>
           {/* Messages area */}
