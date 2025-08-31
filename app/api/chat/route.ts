@@ -1,11 +1,14 @@
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI, google } from "@ai-sdk/google";
 import { streamText } from "ai";
 import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+// Simple in-memory rate limiting: 5 messages per IP
+const rateLimit = new Map<string, number>();
+
 export async function POST(req: NextRequest) {
-  const { message, systemPrompt } = await req.json(); // receive systemPrompt from frontend
+  const { message, systemPrompt, apiKey } = await req.json(); // receive systemPrompt and apiKey from frontend
 
   if (!message) {
     return new Response("Message is required", { status: 400 });
@@ -14,6 +17,14 @@ export async function POST(req: NextRequest) {
   if (!systemPrompt) {
     return new Response("systemPrompt is required", { status: 400 });
   }
+
+  // Rate limiting: get IP
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown';
+  const currentCount = rateLimit.get(ip) || 0;
+  if (currentCount >= 5) {
+    return new Response("Rate limit exceeded. You can send up to 5 messages.", { status: 429 });
+  }
+  rateLimit.set(ip, currentCount + 1);
 
   // Accept both string and array, always convert to Gemini format
   let geminiMessages;
@@ -30,8 +41,10 @@ export async function POST(req: NextRequest) {
 
   try {
     // Use the dynamic systemPrompt sent from frontend
+    const googleAI = apiKey ? createGoogleGenerativeAI({ apiKey }) : createGoogleGenerativeAI();
+    const model = googleAI("gemini-1.5-flash");
     const result = await streamText({
-      model: google("gemini-1.5-flash"),
+      model,
       system: systemPrompt,
       messages: geminiMessages,
     });

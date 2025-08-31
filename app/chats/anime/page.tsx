@@ -8,13 +8,15 @@ import {
   ChatMessageContent,
 } from "@/components/ui/chat-message";
 import { ANIME_CHARACTERS, type AnimeCharacter } from "@/system-prompts/anime-prompts";
+import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 
 
 export default function ChatwithKYemon() {
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]); 
+  const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
 
   // Auto scroll
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function ChatwithKYemon() {
     if (!selectedCharacter) return; // ensure a character is selected
 
     const userMsgCount = messages.filter((m) => m.role === "user").length;
-    if (userMsgCount >= 15) {
+    if (userMsgCount >= 5) {
       setRateLimitReached(true);
       localStorage.setItem("chat_rate_limit_expiry", String(Date.now() + 3 * 60 * 60 * 1000));
       if (typeof window !== "undefined") {
@@ -53,14 +55,19 @@ export default function ChatwithKYemon() {
 
     setMessages((m) => [...m, { role: "user", text: prompt }]);
 
+    const apiKey = localStorage.getItem('geminiApiKey');
     const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: prompt,
         systemPrompt: selectedCharacter.systemPrompt,
+        apiKey: apiKey || undefined,
       }),
     });
+
+    // Increment message count after successful API call
+    incrementMessageCount();
 
     const reader = res.body?.getReader();
     if (!reader) return;
@@ -105,7 +112,7 @@ export default function ChatwithKYemon() {
 
       {rateLimitReached && (
         <div className="mb-4 p-3 bg-red-600 text-white rounded-lg text-center">
-          Rate limit reached. You can only send 15 messages per session.
+          Rate limit reached. You can only send 5 messages per session.
         </div>
       )}
 
