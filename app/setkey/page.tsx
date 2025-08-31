@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useApiKeyNotification } from '@/hooks/use-api-key-notification';
+import { toast } from 'sonner';
 
 export default function SetKeyPage() {
   const router = useRouter();
@@ -26,14 +27,14 @@ export default function SetKeyPage() {
       resetMessageCount(); // Reset message count when API key is set
       router.push('/chats/anime');
     } else {
-      alert('Please enter a valid API key.');
+      toast.error('Please enter a valid API key.');
     }
   };
 
   const handleClear = () => {
     localStorage.removeItem('geminiApiKey');
     setSavedKey('');
-    alert('API Key cleared.');
+    toast.success('API Key cleared.');
   };
 
   return (
