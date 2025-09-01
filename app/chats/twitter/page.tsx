@@ -25,6 +25,14 @@ export default function ChatwithKYemon() {
   const [selectedCharacter, setSelectedCharacter] = useState<TweetCharacter>(XOG_CHARACTERS[0]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto scroll
   useEffect(() => {
@@ -169,12 +177,12 @@ export default function ChatwithKYemon() {
 
   return (
     <div
-      className="flex flex-col h-screen text-white relative"
+      className="flex flex-col h-screen text-white relative overflow-x-hidden"
     >
       <div
         className="absolute inset-0 z-[-1]"
         style={{
-          backgroundImage: 'url(/image/gradient.jpg)',
+          backgroundImage: isMobile ? 'url(/image/gradientmobile.jpg)' : 'url(/image/gradient.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundColor: messages.length > 0 ? 'rgba(28, 25, 23, 0.8)' : 'rgba(28, 25, 23, 0.2)'

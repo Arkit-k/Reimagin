@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen  bg-stone-900 text-white">
+    <div className="min-h-screen md:bg-stone-900 text-white">
       <div className="pt-10">
         <div className="m-10">
           <Link href="/">

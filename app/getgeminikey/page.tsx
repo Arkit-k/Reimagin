@@ -3,7 +3,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 export default function GetGeminiKeyPage() {
   return (
-    <div className="h-screen bg-stone-900 ">
+    <div className="h-screen md:bg-stone-900 ">
 
       <div className='m-10'>
       <Link href="/">

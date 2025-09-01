@@ -4,7 +4,7 @@ import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars"
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-900">
+    <div className="min-h-screen flex items-center justify-center md:bg-stone-900">
       <div className="text-center space-y-6 p-4 md:p-8">
         <Image
           src="/image/Logo.png"

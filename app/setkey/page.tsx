@@ -40,7 +40,7 @@ export default function SetKeyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-900 pt-10">
+    <div className="min-h-screen md:bg-stone-900 pt-10">
     <div className='m-10'>
       <Link href="/">
         <FaArrowLeft className='text-white' />

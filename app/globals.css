@@ -237,15 +237,23 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     letter-spacing: var(--tracking-normal);
     min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url('/image/gradient.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
   }
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   body {
-    background-attachment: scroll; /* Fixed attachment can cause issues on mobile */
+    background-image: url('/image/gradientmobile.jpg') !important;
+    background-attachment: scroll !important; /* Fixed attachment can cause issues on mobile */
+    overflow-x: hidden !important;
   }
 }
