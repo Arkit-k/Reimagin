@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 import { toast } from 'sonner';
+import Image from "next/image";
 
 import {
   ChatMessage,
@@ -166,7 +167,27 @@ export default function ChatwithKYemon() {
   return (
     <div className="flex flex-col h-screen bg-stone-900 text-white">
       <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
+        <div className="flex flex-col">
+          <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
+          <p className="text-sm text-muted-foreground">
+            Chatting with {selectedCharacter.name}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col items-end">
+            <span className="text-sm font-medium">{selectedCharacter.author.name}</span>
+            <span className="text-xs text-muted-foreground">Author</span>
+          </div>
+          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-border">
+            <Image
+              src={selectedCharacter.author.image}
+              alt={selectedCharacter.author.name}
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
       </header>
 
       {rateLimitReached && (
@@ -202,7 +223,7 @@ export default function ChatwithKYemon() {
                   variant="bubble"
                 >
                   {message.role !== "user" ? (
-                    <ChatMessageAvatar imageSrc={selectedCharacter.image} />
+                    <ChatMessageAvatar imageSrc={selectedCharacter.image} name={selectedCharacter.name} />
                   ) : (
                     <ChatMessageAvatar />
                   )}

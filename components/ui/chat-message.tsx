@@ -3,6 +3,7 @@ import { MarkdownContent } from "@/components/ui/markdown-content";
 import { type VariantProps, cva } from "class-variance-authority";
 import { SparklesIcon, UserIcon } from "lucide-react";
 import React, { type ReactNode } from "react";
+import Image from "next/image";
 
 const chatMessageVariants = cva("flex gap-4 w-100", {
        variants: {
@@ -102,12 +103,13 @@ const chatMessageAvatarVariants = cva(
 interface ChatMessageAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
 	imageSrc?: string;
 	icon?: ReactNode;
+	name?: string;
 }
 
 const ChatMessageAvatar = React.forwardRef<
 	HTMLDivElement,
 	ChatMessageAvatarProps
->(({ className, icon: iconProps, imageSrc, ...props }, ref) => {
+>(({ className, icon: iconProps, imageSrc, name, ...props }, ref) => {
 	const context = useChatMessage();
 	const type = context?.type ?? "incoming";
 	const icon =
@@ -115,19 +117,28 @@ const ChatMessageAvatar = React.forwardRef<
 	return (
 		<div
 			ref={ref}
-			className={cn(chatMessageAvatarVariants({ type, className }))}
+			className={cn("flex flex-col items-center gap-1", className)}
 			{...props}
 		>
-			{imageSrc ? (
-				<img
-					src={imageSrc}
-					alt="Avatar"
-					className="h-full w-full object-cover"
-				/>
-			) : (
-				<div className="translate-y-px [&_svg]:size-4 [&_svg]:shrink-0">
-					{icon}
-				</div>
+			<div className={cn(chatMessageAvatarVariants({ type }))}>
+				{imageSrc ? (
+					<Image
+						src={imageSrc}
+						alt="Avatar"
+						width={32}
+						height={32}
+						className="h-full w-full object-cover"
+					/>
+				) : (
+					<div className="translate-y-px [&_svg]:size-4 [&_svg]:shrink-0">
+						{icon}
+					</div>
+				)}
+			</div>
+			{name && (
+				<span className="text-xs text-muted-foreground text-center max-w-[60px] truncate">
+					{name}
+				</span>
 			)}
 		</div>
 	);

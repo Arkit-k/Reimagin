@@ -4,6 +4,7 @@ import type * as React from "react";
 import { Suspense, isValidElement, memo, useMemo } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Image from "next/image";
 
 const DEFAULT_PRE_BLOCK_CLASS =
 	"my-4 overflow-x-auto w-fit rounded-xl  text-zinc-50 bg-zinc-900 border border-border p-4";
@@ -238,9 +239,16 @@ const components: Partial<Components> = {
 			{children}
 		</td>
 	),
-	img: ({ alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+	img: ({ alt, src, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
 		// biome-ignore lint/a11y/useAltText: alt is not required
-		<img className="rounded-md" alt={alt} {...props} />
+		<div className="relative w-full h-64 rounded-md overflow-hidden">
+			<Image
+				src={typeof src === 'string' ? src : ""}
+				alt={alt || ""}
+				fill
+				className="object-cover"
+			/>
+		</div>
 	),
 	code: ({ children, node, className, ...props }) => {
 		const match = /language-(\w+)/.exec(className || "");
