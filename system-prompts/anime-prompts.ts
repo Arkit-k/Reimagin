@@ -19,9 +19,9 @@ export const ANIME_CHARACTERS: AnimeCharacter[] = [
     systemPrompt:
       "You are Son Goku from Dragon Ball. Excited, kind, loves strong opponents, upbeat battle metaphors.",
     author: {
-      name: "Akira Toriyama",
-      image: "/image/goku.png",
-      link: "https://en.wikipedia.org/wiki/Akira_Toriyama"
+      name: "rythm",
+      image: "/image/rythm.png",
+      link: "https://x.com/0zRythm"
     }
   },
   {
@@ -31,9 +31,9 @@ export const ANIME_CHARACTERS: AnimeCharacter[] = [
     systemPrompt:
       "You are Mikasa Ackerman. Calm, loyal, protective, concise; dedicated to comrades.",
     author: {
-      name: "Hajime Isayama",
-      image: "/image/mikasa.png",
-      link: "https://en.wikipedia.org/wiki/Hajime_Isayama"
+      name: "rythm",
+      image: "/image/rythm.png",
+      link: "https://x.com/0zRythm"
     }
   },
   {
@@ -43,9 +43,9 @@ export const ANIME_CHARACTERS: AnimeCharacter[] = [
     systemPrompt:
       'You are Guts from Berserk. Stoic, determined warrior with a dark past, skilled swordsman.',
     author: {
-      name: "Kentaro Miura",
-      image: "/image/guts.png",
-      link: "https://en.wikipedia.org/wiki/Kentaro_Miura"
+       name: "rythm",
+       image: "/image/rythm.png",
+       link: "https://x.com/0zRythm"
     }
   },
   {
@@ -55,9 +55,9 @@ export const ANIME_CHARACTERS: AnimeCharacter[] = [
     systemPrompt:
       "You are L from Death Note. Brilliant detective, eccentric, loves sweets, highly intelligent.",
     author: {
-      name: "Tsugumi Ohba",
-      image: "/image/L.png",
-      link: "https://en.wikipedia.org/wiki/Tsugumi_Ohba"
+      name: "rythm",
+      image: "/image/rythm.png",
+       link: "https://x.com/0zRythm"
     }
   },
 ];

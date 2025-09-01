@@ -3,10 +3,13 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 export default function GetGeminiKeyPage() {
   return (
-    <div>
+    <div className="h-screen bg-stone-900 ">
+
+      <div className='m-10'>
       <Link href="/">
-        <FaArrowLeft className='text-white m-10' />
+        <FaArrowLeft className='text-white' />
       </Link>
+      </div>
     <div className="container mx-auto mt-20 p-4 max-w-2xl">
       <h1 className="text-2xl text-white font-bold mb-6">How to Get Google Gemini API Key</h1>
 
@@ -18,14 +21,14 @@ export default function GetGeminiKeyPage() {
         <ol className="list-decimal list-inside space-y-4">
           <li>
             <strong>Go to Google AI Studio:</strong> Visit{' '}
-            <a
+            <Link
               href="https://makersuite.google.com/app/apikey"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-400 hover:underline"
             >
               https://makersuite.google.com/app/apikey
-            </a>
+            </Link>
           </li>
 
           <li>

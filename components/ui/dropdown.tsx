@@ -37,7 +37,7 @@ export function AnimeSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -92,7 +92,7 @@ export function FictionSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -109,7 +109,8 @@ export function FictionSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top">
+      <SelectContent side="top"  className="
+      bg-stone-900 text-white">
         <SelectGroup>
           <SelectLabel>Fiction Characters</SelectLabel>
           {FICTION_CHARACTERS.map((char) => (
@@ -146,7 +147,7 @@ export function XogSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -163,7 +164,8 @@ export function XogSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top">
+      <SelectContent side="top"  className="
+      bg-stone-900 text-white">
         <SelectGroup>
           <SelectLabel>X og Characters</SelectLabel>
           {XOG_CHARACTERS.map((char) => (
@@ -176,6 +178,40 @@ export function XogSelect({ onSelect, value }: Props) {
                 className="rounded-full"
               />
               {char.name}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
+type NavProps = {
+  onSelect: (path: string) => void;
+  currentPath?: string;
+};
+
+export function NavSelect({ onSelect, currentPath }: NavProps) {
+  const navOptions = [
+    { label: "Anime", path: "/chats/anime" },
+    { label: "Fiction", path: "/chats/fiction" },
+    { label: "Twitter", path: "/chats/twitter" },
+  ];
+
+  const currentLabel = navOptions.find(opt => opt.path === currentPath)?.label || "Navigate";
+
+  return (
+    <Select onValueChange={onSelect}>
+      <SelectTrigger className="w-full max-w-[120px] md:w-[120px] flex items-center gap-2 bg-transparent md:bg-stone-800">
+        <span className="text-sm">{currentLabel}</span>
+      </SelectTrigger>
+
+      <SelectContent side="top" className="bg-stone-900 text-white">
+        <SelectGroup>
+          <SelectLabel>Navigate to</SelectLabel>
+          {navOptions.map((opt) => (
+            <SelectItem key={opt.path} value={opt.path} className="flex items-center gap-2">
+              {opt.label}
             </SelectItem>
           ))}
         </SelectGroup>

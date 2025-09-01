@@ -40,10 +40,12 @@ export default function SetKeyPage() {
   };
 
   return (
-    <div>
-    <Link href="/">
-        <FaArrowLeft className='text-white m-10' />
+    <div className="min-h-screen bg-stone-900 pt-10">
+    <div className='m-10'>
+      <Link href="/">
+        <FaArrowLeft className='text-white' />
       </Link>
+    </div>
     <div className="container mx-auto mt-20 p-4 max-w-md">
       <h1 className="text-xl text-white font-bold mb-4">Set Google Gemini API Key</h1>
       <div className="space-y-4">

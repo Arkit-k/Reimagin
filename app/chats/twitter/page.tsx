@@ -1,10 +1,12 @@
 'use client';
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 import { toast } from 'sonner';
 import Image from "next/image";
+import { Star } from 'lucide-react';
 
 import {
   ChatMessage,
@@ -13,6 +15,7 @@ import {
 } from "@/components/ui/chat-message";
 import { Tweet_CHARACTERS as XOG_CHARACTERS, type TweetCharacter } from "@/system-prompts/x-prompts";
 import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
+import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars";
 
 
 export default function ChatwithKYemon() {
@@ -165,27 +168,65 @@ export default function ChatwithKYemon() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-stone-900 text-white">
-      <header className="w-full py-4 px-4 border-b border-stone-800 bg-stone-950 flex items-center justify-between">
-        <div className="flex flex-col">
-          <h1 className="text-xl font-bold tracking-tight">Imagine if</h1>
-          <p className="text-sm text-muted-foreground">
-            Chatting with {selectedCharacter.name}
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col items-end">
-            <span className="text-sm font-medium">{selectedCharacter.author.name}</span>
-            <span className="text-xs text-muted-foreground">Author</span>
-          </div>
-          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-border">
+    <div
+      className="flex flex-col h-screen text-white relative"
+    >
+      <div
+        className="absolute inset-0 z-[-1]"
+        style={{
+          backgroundImage: 'url(/image/gradient.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: messages.length > 0 ? 'rgba(28, 25, 23, 0.8)' : 'rgba(28, 25, 23, 0.2)'
+        }}
+      />
+      <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-1">
             <Image
-              src={selectedCharacter.author.image}
-              alt={selectedCharacter.author.name}
-              width={40}
-              height={40}
-              className="w-full h-full object-cover"
+              src="/image/Logo.png"
+              alt="Logo"
+              width={60}
+              height={60}
+              className="rounded md:w-[80px] md:h-[80px]"
             />
+            <div className="flex flex-col">
+              <h1 className="text-lg md:text-xl font-bold tracking-tight">Reimagine</h1>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Chatting with {selectedCharacter.name}
+              </p>
+            </div>
+          </div>
+          <div className="hidden md:flex items-center gap-4 absolute left-1/2 transform -translate-x-1/2">
+            <Link href="/chats/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Anime
+            </Link>
+            <Link href="/chats/fiction" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Fiction
+            </Link>
+            <span className="text-base font-medium text-white">
+              Twitter
+            </span>
+          </div>
+          <div className="flex items-center gap-4 md:gap-6">
+            <div className="hidden md:block">
+              <GitHubStarsButton username="Arkit-k" repo="Reimagine" showStars={false} />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col items-end">
+                <span className="text-sm font-medium">{selectedCharacter.author.name}</span>
+                <span className="text-xs text-muted-foreground">Author</span>
+              </div>
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-border">
+                <Image
+                  src={selectedCharacter.author.image}
+                  alt={selectedCharacter.author.name}
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover md:w-[40px] md:h-[40px]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </header>

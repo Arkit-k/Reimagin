@@ -11,7 +11,8 @@ import { useTextareaResize } from "@/hooks/use-textarea-resize";
 import { ArrowUpIcon } from "lucide-react";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
-import { AnimeSelect, FictionSelect, XogSelect } from "./dropdown";
+import { AnimeSelect, FictionSelect, XogSelect, NavSelect } from "./dropdown";
+import { usePathname } from 'next/navigation';
 
 interface ChatInputContextValue {
   value?: string;
@@ -68,7 +69,7 @@ function ChatInput({
       <div
         className={cn(
           variant === "default" &&
-            "flex flex-col items-end w-full p-2 rounded-2xl bg-stone-800 focus-within:ring-1 focus-within:ring-ring focus-within:outline-none",
+            "flex flex-col items-end w-full p-2 rounded-2xl bg-transparent backdrop-blur-md border border-white/10 shadow-lg focus-within:ring-1 focus-within:ring-ring focus-within:outline-none",
           variant === "unstyled" && "flex items-start gap-2 w-full",
           className
         )}
@@ -126,7 +127,7 @@ function ChatInputTextArea({
       onChange={onChange}
       onKeyDown={handleKeyDown}
       className={cn(
-        "max-h-[400px] min-h-0 bg-stone-500 resize-none overflow-x-hidden",
+        "max-h-[400px] min-h-0 bg-stone-500/60 backdrop-blur-sm resize-none overflow-x-hidden",
         variant === "unstyled" &&
           "border-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
         className
@@ -174,6 +175,7 @@ function ChatInputSubmit({
   const selectedCharacter = characters.find(
     (c) => c.id === selectedCharacterId
   );
+  const pathname = usePathname();
 
   if (loading && onStop) {
     return (
@@ -207,15 +209,22 @@ function ChatInputSubmit({
   const isDisabled = !selectedCharacter || !context.value || context.value.trim().length === 0;
 
   return (
-    <div className="flex items-center justify-between gap-4 w-full">
-      {/* Character dropdown */}
-      {selectType === "fiction" ? (
-        <FictionSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
-      ) : selectType === "xog" ? (
-        <XogSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
-      ) : (
-        <AnimeSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
-      )}
+    <div className="flex items-center justify-between gap-2 w-full">
+      <div className="flex items-center gap-2">
+        {/* Nav dropdown for mobile */}
+        <div className="md:hidden">
+          <NavSelect onSelect={(path) => window.location.href = path} currentPath={pathname} />
+        </div>
+
+        {/* Character dropdown */}
+        {selectType === "fiction" ? (
+          <FictionSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+        ) : selectType === "xog" ? (
+          <XogSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+        ) : (
+          <AnimeSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+        )}
+      </div>
 
       {/* Submit / Arrow Button */}
       <Button
