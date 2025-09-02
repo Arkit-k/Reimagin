@@ -13,7 +13,7 @@ import {
   ChatMessageAvatar,
   ChatMessageContent,
 } from "@/components/ui/chat-message";
-import { Fiction_CHARACTERS as FICTION_CHARACTERS, type FictCharacter } from "@/system-prompts/fiction-prompts";
+import { Fiction_CHARACTERS as FICTION_CHARACTERS, type FictCharacter, FICTION_BACKGROUNDS } from "@/system-prompts/fiction-prompts";
 import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars";
 
@@ -182,10 +182,10 @@ export default function ChatwithKYemon() {
       <div
         className="absolute inset-0 z-[-1]"
         style={{
-          backgroundImage: isMobile ? 'url(/image/gradientmobile.jpg)' : 'url(/image/gradient.jpg)',
+          backgroundImage: messages.length > 0 ? 'none' : `url(${isMobile ? FICTION_BACKGROUNDS.mobile : FICTION_BACKGROUNDS.desktop})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundColor: messages.length > 0 ? 'rgba(28, 25, 23, 0.8)' : 'rgba(28, 25, 23, 0.2)'
+          backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : 'rgba(28, 25, 23, 0.2)'
         }}
       />
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">

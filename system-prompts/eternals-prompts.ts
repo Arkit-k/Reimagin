@@ -12,6 +12,11 @@ export type EternalsCharacter = {
   };
 };
 
+export const ETERNALS_BACKGROUNDS = {
+  desktop: "/backgrounds/eternalbg.jpg",
+  mobile: "/backgrounds/eternalmobile.png"
+};
+
 export const Eternals_CHARACTERS: EternalsCharacter[] = [
   {
     id: "da vinci",

@@ -16,6 +16,11 @@ interface Author{
 
 }
 
+export const X_BACKGROUNDS = {
+  desktop: "/backgrounds/twitterbg.jpg",
+  mobile: "/backgrounds/twittermobile.jpeg"
+};
+
 export const Tweet_CHARACTERS: TweetCharacter[] = [
   {
     id: "kuche",

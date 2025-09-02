@@ -11,6 +11,11 @@ export type AnimeCharacter = {
   };
 };
 
+export const ANIME_BACKGROUNDS = {
+  desktop: "/backgrounds/animebg.jpg",
+  mobile: "/backgrounds/animemobile.jpeg"
+};
+
 export const ANIME_CHARACTERS: AnimeCharacter[] = [
   {
     id: "gooku",

@@ -11,6 +11,11 @@ export type FictCharacter = {
   };
 };
 
+export const FICTION_BACKGROUNDS = {
+  desktop: "/backgrounds/fictionbg.jpeg",
+  mobile: "/backgrounds/fictionmobile.jpg"
+};
+
 export const Fiction_CHARACTERS: FictCharacter[] = [
   {
     id: "tony",
