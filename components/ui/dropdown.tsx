@@ -203,7 +203,7 @@ export function EthSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[220px] md:w-[220px] flex items-center gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -220,8 +220,7 @@ export function EthSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top"  className="
-      bg-stone-900 text-white">
+      <SelectContent side="top"  className="w-[240px] bg-stone-900 text-white">
         <SelectGroup>
           <SelectLabel>Eternal Characters</SelectLabel>
           {Eternals_CHARACTERS.map((char) => (
