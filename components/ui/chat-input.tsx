@@ -6,12 +6,13 @@ import { ShineBorder } from "../magicui/shine-border";
 import { ANIME_CHARACTERS } from "@/system-prompts/anime-prompts";
 import { Fiction_CHARACTERS as FICTION_CHARACTERS } from "@/system-prompts/fiction-prompts";
 import { Tweet_CHARACTERS as XOG_CHARACTERS } from "@/system-prompts/x-prompts";
+import { Eternals_CHARACTERS } from "@/system-prompts/eternals-prompts";
 import { cn } from "@/lib/utils";
 import { useTextareaResize } from "@/hooks/use-textarea-resize";
 import { ArrowUpIcon } from "lucide-react";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
-import { AnimeSelect, FictionSelect, XogSelect, NavSelect } from "./dropdown";
+import { AnimeSelect, FictionSelect, XogSelect, EthSelect, NavSelect } from "./dropdown";
 import { usePathname } from 'next/navigation';
 
 interface ChatInputContextValue {
@@ -24,7 +25,7 @@ interface ChatInputContextValue {
   rows?: number;
   selectedCharacterId?: string | null;
   onCharacterSelect?: (id: string) => void;
-  selectType?: "anime" | "fiction" | "xog";
+  selectType?: "anime" | "fiction" | "xog" | "eternals";
 }
 
 const ChatInputContext = createContext<ChatInputContextValue>({});
@@ -34,7 +35,7 @@ interface ChatInputProps extends Omit<ChatInputContextValue, "variant"> {
   className?: string;
   variant?: "default" | "unstyled";
   rows?: number;
-  selectType?: "anime" | "fiction" | "xog";
+  selectType?: "anime" | "fiction" | "xog" | "eternals";
 }
 
 function ChatInput({
@@ -166,6 +167,8 @@ function ChatInputSubmit({
         return FICTION_CHARACTERS;
       case "xog":
         return XOG_CHARACTERS;
+      case "eternals":
+        return Eternals_CHARACTERS;
       default:
         return ANIME_CHARACTERS;
     }
@@ -221,6 +224,8 @@ function ChatInputSubmit({
           <FictionSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
         ) : selectType === "xog" ? (
           <XogSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
+        ) : selectType === "eternals" ? (
+          <EthSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
         ) : (
           <AnimeSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
         )}

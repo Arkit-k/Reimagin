@@ -13,17 +13,16 @@ import {
   ChatMessageAvatar,
   ChatMessageContent,
 } from "@/components/ui/chat-message";
-import { ANIME_CHARACTERS, type AnimeCharacter } from "@/system-prompts/anime-prompts";
+import { Eternals_CHARACTERS, type EternalsCharacter } from "@/system-prompts/eternals-prompts";
 import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars";
-import { Eternals_CHARACTERS } from "@/system-prompts/eternals-prompts";
 
 
 export default function ChatwithKYemon() {
   const router = useRouter();
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
+  const [selectedCharacter, setSelectedCharacter] = useState<EternalsCharacter>(Eternals_CHARACTERS[0]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
   const [isMobile, setIsMobile] = useState(false);
@@ -216,7 +215,7 @@ export default function ChatwithKYemon() {
             <Link href="/chat/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Twitter
             </Link>
-            <Link href="/chat/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Anime
             </Link>
           </div>
@@ -259,7 +258,7 @@ export default function ChatwithKYemon() {
              isCentered
              selectedCharacterId={selectedCharacter.id}
              onCharacterSelect={(id) => setSelectedCharacter(Eternals_CHARACTERS.find(c => c.id === id) || Eternals_CHARACTERS[0])}
-             selectType="anime"
+             selectType="eternals"
            />
          </div>
        </div>
@@ -295,7 +294,7 @@ export default function ChatwithKYemon() {
                 placeholder={`Talk with ${selectedCharacter.name}...`}
                 selectedCharacterId={selectedCharacter.id}
                 onCharacterSelect={(id) => setSelectedCharacter(Eternals_CHARACTERS.find(c => c.id === id) || Eternals_CHARACTERS[0])}
-                selectType="anime"
+                selectType="eternals"
               />
             </div>
           </div>
