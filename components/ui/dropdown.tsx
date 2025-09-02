@@ -213,7 +213,7 @@ export function EthSelect({ onSelect, value }: Props) {
               height={32}
               className="rounded-full"
             />
-            <span>{selectedChar.name}</span>
+            <span>{selectedChar.name.length > 10 ? selectedChar.name.substring(0, 10) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select an Eternal's character" />

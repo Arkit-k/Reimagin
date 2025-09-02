@@ -206,15 +206,20 @@ export default function ChatwithKYemon() {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-4 absolute left-1/2 transform -translate-x-1/2">
-            <Link href="/chats/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Anime
             </Link>
             <span className="text-base font-medium text-white">
               Fiction
             </span>
-            <Link href="/chats/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Twitter
             </Link>
+            <Link href="/chat/Eternals" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Eternal
+            </Link>
+            
+            
           </div>
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden md:block">

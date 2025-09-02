@@ -206,9 +206,9 @@ export default function ChatwithKYemon() {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-4 absolute left-1/2 transform -translate-x-1/2">
-            <span className="text-base font-medium text-white">
-              Eternals
-            </span>
+          <Link href="/chat/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Anime
+            </Link>
             <Link href="/chat/fiction" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Fiction
             </Link>
@@ -218,6 +218,9 @@ export default function ChatwithKYemon() {
             <Link href="/chat/anime" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Anime
             </Link>
+            <span className="text-base font-medium text-white">
+              Eternals
+            </span>
           </div>
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden md:block">
@@ -251,7 +254,7 @@ export default function ChatwithKYemon() {
      {messages.length === 0 ? (
        <div className="flex flex-1 items-center justify-center px-4">
          <div className="w-full max-w-[600px] text-center">
-           <h2 className="text-2xl font-bold text-white mb-4">Chat with your favorite anime character</h2>
+           <h2 className="text-2xl font-bold text-white mb-4">Chat with your favorite eternals character</h2>
            <ChatInputDemo
              onSubmit={handleSubmit}
              placeholder={`Talk with ${selectedCharacter.name}...`}
