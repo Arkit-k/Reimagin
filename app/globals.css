@@ -241,11 +241,20 @@
     letter-spacing: var(--tracking-normal);
     min-height: 100vh;
     overflow-x: hidden;
-    background-image: url('/image/gradient.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
+    background-image: url('/backgrounds/herobg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  body {
+    background-image: url('/backgrounds/herobgmobile.jpeg');
+    background-attachment: scroll; /* Fixed attachment can cause issues on mobile */
+    overflow-x: hidden !important;
   }
 }
 
@@ -255,5 +264,63 @@
     background-image: url('/image/gradientmobile.jpg') !important;
     background-attachment: scroll !important; /* Fixed attachment can cause issues on mobile */
     overflow-x: hidden !important;
+  }
+}
+
+/* Chat page backgrounds */
+.chat-anime-bg {
+  background-image: url('/backgrounds/animebg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(28, 25, 23, 0.2);
+}
+
+.chat-eternals-bg {
+  background-image: url('/backgrounds/eternalbg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(28, 25, 23, 0.2);
+}
+
+.chat-fiction-bg {
+  background-image: url('/backgrounds/fictionbg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(28, 25, 23, 0.2);
+}
+
+.chat-twitter-bg {
+  background-image: url('/backgrounds/twitterbg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(28, 25, 23, 0.2);
+}
+
+.hero-bg {
+  background-image: url('/backgrounds/herobg.png');
+  background-size: cover;
+  background-position: center;
+}
+
+
+@media (max-width: 1024px) {
+  .chat-anime-bg {
+    background-image: url('/backgrounds/animemobile.jpeg');
+  }
+
+  .chat-eternals-bg {
+    background-image: url('/backgrounds/eternalmobile.png');
+  }
+
+  .chat-fiction-bg {
+    background-image: url('/backgrounds/fictionmobile.jpg');
+  }
+
+  .chat-twitter-bg {
+    background-image: url('/backgrounds/twittermobile.jpeg');
+  }
+
+  .hero-bg {
+    background-image: url('/backgrounds/herobgmobile.jpeg');
   }
 }

@@ -25,14 +25,7 @@ export default function ChatwithKYemon() {
   const [selectedCharacter, setSelectedCharacter] = useState<TweetCharacter>(XOG_CHARACTERS[0]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  // Removed isMobile state and useEffect as backgrounds are now handled via CSS
 
   // Auto scroll
   useEffect(() => {
@@ -180,12 +173,9 @@ export default function ChatwithKYemon() {
       className="flex flex-col h-screen text-white relative overflow-x-hidden"
     >
       <div
-        className="absolute inset-0 z-[-1]"
+        className={`absolute inset-0 z-[-1] ${messages.length === 0 ? 'chat-twitter-bg' : ''}`}
         style={{
-          backgroundImage: messages.length > 0 ? 'none' : `url(${isMobile ? X_BACKGROUNDS.mobile : X_BACKGROUNDS.desktop})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : 'rgba(28, 25, 23, 0.2)'
+          backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : undefined
         }}
       />
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
