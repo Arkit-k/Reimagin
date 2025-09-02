@@ -209,11 +209,14 @@ export default function ChatwithKYemon() {
             <span className="text-base font-medium text-white">
               Anime
             </span>
-            <Link href="/chats/fiction" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/fiction" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Fiction
             </Link>
-            <Link href="/chats/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/twitter" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Twitter
+            </Link>
+            <Link href="/chat/eternals" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Eternals
             </Link>
           </div>
           <div className="flex items-center gap-4 md:gap-6">

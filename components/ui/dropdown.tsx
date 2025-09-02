@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { Eternals_CHARACTERS } from "@/system-prompts/eternals-prompts";
 import { ANIME_CHARACTERS } from "@/system-prompts/anime-prompts";
 import { Fiction_CHARACTERS as FICTION_CHARACTERS } from "@/system-prompts/fiction-prompts";
 import { Tweet_CHARACTERS as XOG_CHARACTERS } from "@/system-prompts/x-prompts";
@@ -186,6 +187,61 @@ export function XogSelect({ onSelect, value }: Props) {
   );
 }
 
+export function EthSelect({ onSelect, value }: Props) {
+  const [selectedCharacter, setSelectedCharacter] = React.useState<string | null>(value || null);
+
+  React.useEffect(() => {
+    setSelectedCharacter(value || null);
+  }, [value]);
+
+  const handleChange = (value: string) => {
+    setSelectedCharacter(value);
+    onSelect(value);
+  };
+
+  const selectedChar = Eternals_CHARACTERS.find(c => c.id === selectedCharacter);
+
+  return (
+    <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
+      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+        {selectedChar ? (
+          <>
+            <Image
+              src={selectedChar.image}
+              alt={selectedChar.name}
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <span>{selectedChar.name}</span>
+          </>
+        ) : (
+          <SelectValue placeholder="Select an Eternal's character" />
+        )}
+      </SelectTrigger>
+
+      <SelectContent side="top"  className="
+      bg-stone-900 text-white">
+        <SelectGroup>
+          <SelectLabel>Eternal Characters</SelectLabel>
+          {Eternals_CHARACTERS.map((char) => (
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+              <Image
+                src={char.image}
+                alt={char.name}
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              {char.name}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+}
+
 type NavProps = {
   onSelect: (path: string) => void;
   currentPath?: string;
@@ -193,9 +249,10 @@ type NavProps = {
 
 export function NavSelect({ onSelect, currentPath }: NavProps) {
   const navOptions = [
-    { label: "Anime", path: "/chats/anime" },
-    { label: "Fiction", path: "/chats/fiction" },
-    { label: "Twitter", path: "/chats/twitter" },
+    { label: "Anime", path: "/chat/anime" },
+    { label: "Fiction", path: "/chat/fiction" },
+    { label: "Twitter", path: "/chat/twitter" },
+    { label: "Eternal", path: "/chat/eternals" },
   ];
 
   const currentLabel = navOptions.find(opt => opt.path === currentPath)?.label || "Navigate";
