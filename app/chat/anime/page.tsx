@@ -23,9 +23,17 @@ export default function ChatwithKYemon() {
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
-  // Removed isMobile state and useEffect as backgrounds are now handled via CSS
+
+  // Check for mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Auto scroll
   useEffect(() => {
@@ -173,11 +181,24 @@ export default function ChatwithKYemon() {
       className="flex flex-col h-screen text-white relative overflow-x-hidden"
     >
       <div
-        className={`absolute inset-0 z-[-1] ${messages.length === 0 ? 'chat-anime-bg' : ''}`}
+        className="fixed inset-0 z-[-1]"
         style={{
           backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : undefined
         }}
-      />
+      >
+        {messages.length === 0 && (
+          <video
+            key={isMobile ? 'mobile' : 'desktop'}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={isMobile ? "/backgrounds/animemobile.mp4" : "/backgrounds/anime.mp4"} type="video/mp4" />
+          </video>
+        )}
+      </div>
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-1">

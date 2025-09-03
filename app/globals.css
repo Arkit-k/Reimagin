@@ -243,20 +243,6 @@
     overflow-x: hidden;
   }
 
-  /* Landing page background */
-  body.landing-page {
-    background-image: url('/image/gradient.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-
-  @media (max-width: 768px) {
-    body.landing-page {
-      background-image: url('/image/gradientmobile.jpg');
-    }
-  }
 }
 
 
