@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCoverflow } from 'swiper/modules'
 import Image from 'next/image'
@@ -22,16 +22,28 @@ const menuItems = [
 
 export default function HeroSection() {
     const [menuState, setMenuState] = React.useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    const videoRef = useRef<HTMLVideoElement>(null)
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 1024px)')
+        const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
+            setIsMobile(e.matches)
+        }
+        checkMobile(mediaQuery)
+        mediaQuery.addEventListener('change', checkMobile)
+        return () => mediaQuery.removeEventListener('change', checkMobile)
+    }, [])
 
     return (
         <>
-            <header>
+            <header className="bg-transparent">
                 <nav
                     data-state={menuState && 'active'}
-                    className="fixed z-20 w-full bg-transparent md:relative">
-                    <div className="m-auto max-w-5xl px-6">
-                        <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-                            <div className="flex w-full justify-between lg:w-auto">
+                    className="fixed z-20 w-full bg-transparent md:relative bg-transparent">
+                    <div className="m-auto max-w-5xl px-6 bg-transaprent">
+                        <div className="flex flex-wrap items-center bg-transparent justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+                            <div className="flex w-full justify-between bg-transparent lg:w-auto">
                                 <Link
                                     href="/"
                                     aria-label="home"
@@ -48,7 +60,7 @@ export default function HeroSection() {
                                 </button>
                             </div>
 
-                            <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+                            <div className="bg-transparent in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 border-transparent p-6 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
                                 <div className="lg:pr-4">
                                     <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
                                         {menuItems.map((item, index) => (
@@ -79,7 +91,22 @@ export default function HeroSection() {
             </header>
             <main className="overflow-hidden">
                 <section className="relative" style={{ minHeight: '100vh' }}>
-                    <div className="relative py-24 lg:py-28">
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        muted
+                        loop
+                        className="absolute inset-0 w-full h-full object-cover z-10"
+                        onLoadedMetadata={() => {
+                            if (videoRef.current) {
+                                const duration = videoRef.current.duration
+                                videoRef.current.currentTime = Math.max(0, duration - 3)
+                            }
+                        }}
+                    >
+                        <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
+                    </video>
+                    <div className="relative py-24 lg:py-28 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
                             <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
                                 <Link

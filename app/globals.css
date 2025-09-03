@@ -243,6 +243,9 @@
     overflow-x: hidden;
   }
 
+  .landing-page body {
+    background: transparent !important;
+  }
 }
 
 

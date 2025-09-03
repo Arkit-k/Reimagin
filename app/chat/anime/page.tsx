@@ -267,7 +267,7 @@ export default function ChatwithKYemon() {
      {messages.length === 0 ? (
        <div className="flex flex-1 items-center justify-center px-4">
          <div className="w-full max-w-[600px] text-center">
-           <h2 className="text-2xl font-bold text-white mb-4">Chat with your favorite anime character</h2>
+           <h2 className="text-2xl md:text-5xl font-bold text-white mb-4">Chat with your favorite anime character</h2>
            <ChatInputDemo
              onSubmit={handleSubmit}
              placeholder={`Talk with ${selectedCharacter.name}...`}
