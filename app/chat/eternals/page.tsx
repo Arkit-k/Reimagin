@@ -23,9 +23,22 @@ export default function ChatwithKYemon() {
   const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<EternalsCharacter>(Eternals_CHARACTERS[0]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
-  // Removed isMobile state and useEffect as backgrounds are now handled via CSS
+
+  // Check for mobile
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 1024px)');
+    const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      setLoaded(true);
+    };
+    checkMobile(mediaQuery);
+    mediaQuery.addEventListener('change', checkMobile);
+    return () => mediaQuery.removeEventListener('change', checkMobile);
+  }, []);
 
   // Auto scroll
   useEffect(() => {
@@ -173,11 +186,23 @@ export default function ChatwithKYemon() {
       className="flex flex-col h-screen text-white relative overflow-x-hidden"
     >
       <div
-        className={`absolute inset-0 z-[-1] ${messages.length === 0 ? 'chat-eternals-bg' : ''}`}
+        className="fixed inset-0 z-[-1]"
         style={{
           backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : undefined
         }}
-      />
+      >
+        {messages.length === 0 && loaded && (
+          <video
+            key={isMobile ? 'mobile' : 'desktop'}
+            autoPlay
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={isMobile ? "/backgrounds/eternalmobile.mp4" : "/backgrounds/eternalbg.mp4"} type="video/mp4" />
+          </video>
+        )}
+      </div>
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-1">

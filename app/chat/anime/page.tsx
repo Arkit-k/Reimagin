@@ -24,15 +24,20 @@ export default function ChatwithKYemon() {
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
 
   // Check for mobile
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const mediaQuery = window.matchMedia('(max-width: 1024px)');
+    const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      setLoaded(true);
+    };
+    checkMobile(mediaQuery);
+    mediaQuery.addEventListener('change', checkMobile);
+    return () => mediaQuery.removeEventListener('change', checkMobile);
   }, []);
 
   // Auto scroll
@@ -186,11 +191,10 @@ export default function ChatwithKYemon() {
           backgroundColor: messages.length > 0 ? 'rgb(28, 25, 23)' : undefined
         }}
       >
-        {messages.length === 0 && (
+        {messages.length === 0 && loaded && (
           <video
             key={isMobile ? 'mobile' : 'desktop'}
             autoPlay
-            muted
             loop
             playsInline
             className="absolute inset-0 w-full h-full object-cover"

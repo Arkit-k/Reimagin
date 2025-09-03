@@ -281,6 +281,25 @@
   background-position: center;
 }
 
+/* Video background visibility */
+.desktop-video {
+  display: block;
+}
+
+.mobile-video {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .desktop-video {
+    display: none;
+  }
+
+  .mobile-video {
+    display: block;
+  }
+}
+
 
 @media (max-width: 1024px) {
   .chat-anime-bg {
