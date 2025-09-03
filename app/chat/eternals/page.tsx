@@ -197,6 +197,7 @@ export default function ChatwithKYemon() {
             autoPlay
             loop
             playsInline
+            preload="auto"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={isMobile ? "/backgrounds/eternalmobile.mp4" : "/backgrounds/eternalbg.mp4"} type="video/mp4" />
