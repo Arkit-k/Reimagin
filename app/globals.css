@@ -237,35 +237,28 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply text-foreground;
+    @apply text-foreground bg-stone-900;
     letter-spacing: var(--tracking-normal);
     min-height: 100vh;
     overflow-x: hidden;
-    background-image: url('/backgrounds/herobg.png');
+  }
+
+  /* Landing page background */
+  body.landing-page {
+    background-image: url('/image/gradient.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
-}
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  body {
-    background-image: url('/backgrounds/herobgmobile.jpeg');
-    background-attachment: scroll; /* Fixed attachment can cause issues on mobile */
-    overflow-x: hidden !important;
+  @media (max-width: 768px) {
+    body.landing-page {
+      background-image: url('/image/gradientmobile.jpg');
+    }
   }
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  body {
-    background-image: url('/image/gradientmobile.jpg') !important;
-    background-attachment: scroll !important; /* Fixed attachment can cause issues on mobile */
-    overflow-x: hidden !important;
-  }
-}
 
 /* Chat page backgrounds */
 .chat-anime-bg {
