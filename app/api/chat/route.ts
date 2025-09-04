@@ -36,8 +36,44 @@ function isValidApiKey(apiKey: string): boolean {
   return /^AIza[0-9A-Za-z-_]{35}$/.test(apiKey);
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'https://your-project-name.vercel.app', // Replace with your Vercel domain
+    'https://yourdomain.com', // Replace with your custom domain if any
+    'https://www.yourdomain.com'
+  ];
+
+  const response = new Response(null, { status: 200 });
+
+  if (origin && allowedOrigins.includes(origin)) {
+    response.headers.set('Access-Control-Allow-Origin', origin);
+  }
+  response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  response.headers.set('Access-Control-Max-Age', '86400');
+
+  return response;
+}
+
 export async function POST(req: NextRequest) {
   try {
+    // Security: CORS and Origin validation
+    const origin = req.headers.get('origin');
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'https://your-project-name.vercel.app', // Replace with your Vercel domain
+      'https://yourdomain.com', // Replace with your custom domain if any
+      'https://www.yourdomain.com'
+    ];
+
+    if (origin && !allowedOrigins.includes(origin)) {
+      return new Response("Origin not allowed", { status: 403 });
+    }
+
     // Security: Check request size
     const contentLength = req.headers.get('content-length');
     if (contentLength && parseInt(contentLength) > 100000) { // 100KB limit
@@ -45,6 +81,13 @@ export async function POST(req: NextRequest) {
     }
 
     const { message, systemPrompt, apiKey } = await req.json();
+
+    // Security: Check server API key
+    const serverApiKey = req.headers.get('x-api-key');
+    const expectedServerKey = process.env.SERVER_API_KEY;
+    if (expectedServerKey && serverApiKey !== expectedServerKey) {
+      return new Response("Invalid server API key", { status: 401 });
+    }
 
     // Security: Validate required fields
     if (!message) {
@@ -145,18 +188,34 @@ export async function POST(req: NextRequest) {
       response.headers.set('X-Frame-Options', 'DENY');
       response.headers.set('X-XSS-Protection', '1; mode=block');
       response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+      response.headers.set('Content-Security-Policy', "default-src 'self'");
+      response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
+      // CORS headers
+      if (origin) {
+        response.headers.set('Access-Control-Allow-Origin', origin);
+      }
+      response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      response.headers.set('Access-Control-Max-Age', '86400');
 
       return response;
     } catch (err) {
       console.error("Gemini API error:", err);
       const errorResponse = new Response("AI request failed", { status: 500 });
       errorResponse.headers.set('X-Content-Type-Options', 'nosniff');
+      errorResponse.headers.set('X-Frame-Options', 'DENY');
+      errorResponse.headers.set('X-XSS-Protection', '1; mode=block');
+      errorResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
       return errorResponse;
     }
   } catch (err) {
     console.error("Request processing error:", err);
     const errorResponse = new Response("Invalid request", { status: 400 });
     errorResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    errorResponse.headers.set('X-Frame-Options', 'DENY');
+    errorResponse.headers.set('X-XSS-Protection', '1; mode=block');
+    errorResponse.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
     return errorResponse;
   }
 }

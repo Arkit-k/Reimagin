@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 
 const menuItems = [
     { name: 'Features', href: '#FeaturesSection' },
+    { name: 'Models', href: '/models' },
     { name: 'About', href: '/about' },
 ]
 
@@ -39,7 +40,7 @@ export default function HeroSection() {
                 <nav
                     data-state={menuState && 'active'}
                     className="fixed z-20 w-full bg-transparent md:relative bg-transparent">
-                    <div className="m-auto max-w-5xl px-6 bg-transaprent">
+                    <div className="m-auto max-w-5xl px-6 bg-transparent">
                         <div className="flex flex-wrap items-center bg-transparent justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                             <div className="flex w-full justify-between bg-transparent lg:w-auto">
                                 <Link
@@ -108,7 +109,7 @@ export default function HeroSection() {
                     >
                         <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
                     </video>
-                    <div className="relative py-24 lg:py-28 z-20">
+                    <div className="relative py-32 lg:py-36 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
                             <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
                                 <Link

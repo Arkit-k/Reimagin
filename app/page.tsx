@@ -66,14 +66,14 @@ export default function Home() {
     return (
       <div className="fixed inset-0 z-50 bg-black">
         <video
-          key={loaded ? (isMobile ? 'mobile' : 'desktop') : 'loading'}
+          key={isMobile ? 'mobile' : 'desktop'}
           autoPlay
           muted
           onEnded={handleVideoEnd}
           onTimeUpdate={handleTimeUpdate}
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src={loaded ? (isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4") : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
+          <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
         </video>
         <div className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-1000 px-4 ${showWelcomeText ? 'opacity-100' : 'opacity-0'}`}>
           <div className="text-center max-w-sm mx-auto">
