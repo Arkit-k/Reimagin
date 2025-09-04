@@ -1,8 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { HeroHeader } from "@/components/landing/header/page";
+
 import { HeroVideoDialogcompo } from "@/components/landing/hero/herovideo";
 import HeroSection from "@/components/landing/hero/page";
+import Features from '@/components/landing/feature/page'
+import CallToAction from '@/components/landing/calltoaction/page'
+import FooterSection from '@/components/landing/footer/page';
 
 export default function Home() {
   const [showLoading, setShowLoading] = useState(true);
@@ -70,6 +73,9 @@ export default function Home() {
         <div className="m-15 top-10">
         <HeroVideoDialogcompo/>
         </div>
+        <Features />
+        <CallToAction/>
+        <FooterSection/>
       </main>
     </div>
   );
