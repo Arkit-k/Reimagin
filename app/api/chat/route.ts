@@ -55,13 +55,23 @@ export async function POST(req: NextRequest) {
       return new Response("System prompt is required", { status: 400 });
     }
 
-    // Security: Validate and sanitize API key
-    if (!apiKey || typeof apiKey !== 'string') {
-      return new Response("Valid API key is required", { status: 401 });
-    }
+    // Security: Handle API key - prioritize user's key, fallback to demo
+    let finalApiKey: string;
+    let isDemoMode = false;
 
-    if (!isValidApiKey(apiKey)) {
-      return new Response("Invalid API key format", { status: 401 });
+    if (apiKey && typeof apiKey === 'string' && isValidApiKey(apiKey)) {
+      // User provided a valid API key - use it
+      finalApiKey = apiKey;
+      console.log('Using user-provided API key');
+    } else {
+      // No valid user key provided - use demo key
+      finalApiKey = process.env.GEMINI_DEMO_API_KEY || '';
+      isDemoMode = true;
+
+      if (!finalApiKey) {
+        return new Response("Demo API key not configured. Please set your own Google Gemini API key.", { status: 401 });
+      }
+      console.log('Using demo API key (no valid user key provided)');
     }
 
     // Security: Sanitize inputs
@@ -70,17 +80,22 @@ export async function POST(req: NextRequest) {
 
     // Security: Enhanced rate limiting with IP and API key combination
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown';
-    const rateLimitKey = `${ip}-${apiKey.slice(-8)}`; // Use last 8 chars of API key for uniqueness
+    const rateLimitKey = isDemoMode ? `demo-${ip}` : `${ip}-${finalApiKey.slice(-8)}`; // Use last 8 chars of API key for uniqueness
     const currentCount = rateLimit.get(rateLimitKey) || 0;
 
-    if (currentCount >= 10) { // Increased limit for authenticated users
-      return new Response("Rate limit exceeded. Please try again later.", { status: 429 });
+    const maxMessages = isDemoMode ? 5 : 10; // Stricter limit for demo mode
+
+    if (currentCount >= maxMessages) {
+      const message = isDemoMode
+        ? "Demo limit reached. Please set your own Google Gemini API key to continue."
+        : "Rate limit exceeded. Please try again later.";
+      return new Response(message, { status: 429 });
     }
     rateLimit.set(rateLimitKey, currentCount + 1);
 
     // Security: Log suspicious activity (basic)
-    if (currentCount > 5) {
-      console.warn(`High usage detected from IP: ${ip}, API key ending: ${apiKey.slice(-4)}`);
+    if (currentCount > (isDemoMode ? 3 : 5)) {
+      console.warn(`High usage detected from IP: ${ip}, mode: ${isDemoMode ? 'demo' : 'authenticated'}`);
     }
 
     // Accept both string and array, always convert to Gemini format
@@ -114,8 +129,8 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      // Use the sanitized systemPrompt and validated API key
-      const googleAI = createGoogleGenerativeAI({ apiKey });
+      // Use the final API key (user's valid key takes priority over demo key)
+      const googleAI = createGoogleGenerativeAI({ apiKey: finalApiKey });
       const model = googleAI("gemini-1.5-flash");
       const result = await streamText({
         model,

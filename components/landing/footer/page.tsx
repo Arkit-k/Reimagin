@@ -8,22 +8,6 @@ const links = [
         href: '#',
     },
     {
-        title: 'Solution',
-        href: '#',
-    },
-    {
-        title: 'Customers',
-        href: '#',
-    },
-    {
-        title: 'Pricing',
-        href: '#',
-    },
-    {
-        title: 'Help',
-        href: '#',
-    },
-    {
         title: 'About',
         href: '#',
     },
@@ -37,7 +21,7 @@ export default function FooterSection() {
                     href="/"
                     aria-label="go home"
                     className="mx-auto block size-fit">
-                    <Image src={Logo} width={50} height={50} alt="logo" />
+                    <Image src={Logo} width={200} height={200} alt="logo" />
                 </Link>
 
                 <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">

@@ -26,6 +26,7 @@ export default function ChatwithKYemon() {
   const [isMobile, setIsMobile] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
 
   // Check for mobile
@@ -61,40 +62,22 @@ export default function ChatwithKYemon() {
     setMessages([]);
   }, [selectedCharacter.id]);
 
+
   const handleSubmit = async (prompt: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
 
-    // API Key validation
-    if (!apiKey) {
-      toast.error('Please set your Google Gemini API key first.', {
-        description: 'Click the "Set Key" button to configure your API key.',
+    const userMsgCount = messages.filter((m) => m.role === "user").length;
+    if (userMsgCount >= 5 && !apiKey) {
+      setRateLimitReached(true);
+      localStorage.setItem("chat_rate_limit_expiry", String(Date.now() + 3 * 60 * 60 * 1000));
+      toast.error("Rate limit reached. Please set your Google Gemini API key to continue.", {
         action: {
           label: 'Set Key',
           onClick: () => router.push('/setkey'),
         },
       });
-      return;
-    }
-
-    // Validate API key format
-    if (!/^AIza[0-9A-Za-z-_]{35}$/.test(apiKey)) {
-      toast.error('Invalid API key format.', {
-        description: 'Please check your Google Gemini API key.',
-        action: {
-          label: 'Update Key',
-          onClick: () => router.push('/setkey'),
-        },
-      });
-      return;
-    }
-
-    const userMsgCount = messages.filter((m) => m.role === "user").length;
-    if (userMsgCount >= 5 && !apiKey) {
-      setRateLimitReached(true);
-      localStorage.setItem("chat_rate_limit_expiry", String(Date.now() + 3 * 60 * 60 * 1000));
-      toast.error("Rate limit reached. You can send messages again in 3 hours.");
       return;
     }
 
@@ -123,7 +106,7 @@ export default function ChatwithKYemon() {
           });
         } else if (res.status === 429) {
           toast.error('Rate limit exceeded.', {
-            description: 'Please try again later.',
+            description: errorData.message || 'Please try again later or set your own API key.',
           });
         } else {
           toast.error('Failed to send message.', {
@@ -193,6 +176,7 @@ export default function ChatwithKYemon() {
       >
         {messages.length === 0 && loaded && (
           <video
+            ref={videoRef}
             key={isMobile ? 'mobile' : 'desktop'}
             autoPlay
             loop
@@ -239,7 +223,12 @@ export default function ChatwithKYemon() {
             <div className="hidden md:block">
               <GitHubStarsButton username="Arkit-k" repo="Reimagine" showStars={false} />
             </div>
-            <div className="flex items-center gap-2">
+            <Link
+              href={selectedCharacter.author.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            >
               <div className="flex flex-col items-end">
                 <span className="text-sm font-medium">{selectedCharacter.author.name}</span>
                 <span className="text-xs text-muted-foreground">Author</span>
@@ -253,7 +242,7 @@ export default function ChatwithKYemon() {
                   className="w-full h-full object-cover md:w-[40px] md:h-[40px]"
                 />
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </header>
@@ -316,7 +305,8 @@ export default function ChatwithKYemon() {
           </div>
         </>
       )}
-                        
+
+
           </div>
   );
 }

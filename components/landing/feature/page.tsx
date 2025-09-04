@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Settings2, Sparkles, Zap } from 'lucide-react'
+import { MessageCircle, Users, Sparkles } from 'lucide-react'
 import { ReactNode } from 'react'
 
 export default function Features() {
@@ -7,45 +7,45 @@ export default function Features() {
         <section className="py-16 md:py-32">
             <div className="@container mx-auto max-w-5xl px-6">
                 <div className="text-center">
-                    <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Built to cover your needs</h2>
-                    <p className="mt-4">Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.</p>
+                    <h2 className="text-balance text-4xl font-semibold lg:text-5xl text-white">Why Choose Reimagine</h2>
+                    <p className="mt-4 text-white">Experience AI-powered conversations with your favorite characters brought to life.</p>
                 </div>
                 <div className="@min-4xl:max-w-full @min-4xl:grid-cols-3 mx-auto mt-8 grid max-w-sm gap-6 [--color-background:var(--color-muted)] [--color-card:var(--color-muted)] *:text-center md:mt-16 dark:[--color-muted:var(--color-zinc-900)]">
-                    <Card className="group border-0 shadow-none">
+                    <Card className="group border-0 shadow-none bg-stone-950">
+                       <CardHeader className="pb-3">
+                           <CardDecorator>
+                               <MessageCircle
+                                   className="size-6"
+                                   aria-hidden
+                               />
+                           </CardDecorator>
+
+                           <h3 className="mt-6 font-medium text-white">AI-Powered Conversations</h3>
+                       </CardHeader>
+
+                       <CardContent>
+                           <p className="text-sm text-white">Engage in intelligent, context-aware chats with AI characters that remember and adapt to your conversations.</p>
+                       </CardContent>
+                   </Card>
+
+                    <Card className="group border-0 shadow-none bg-stone-950">
                         <CardHeader className="pb-3">
                             <CardDecorator>
-                                <Zap
+                                <Users
                                     className="size-6"
                                     aria-hidden
                                 />
                             </CardDecorator>
 
-                            <h3 className="mt-6 font-medium">Customizable</h3>
+                            <h3 className="mt-6 font-medium text-white">Diverse Character Collection</h3>
                         </CardHeader>
 
                         <CardContent>
-                            <p className="text-sm">Extensive customization options, allowing you to tailor every aspect to meet your specific needs.</p>
+                            <p className="mt-3 text-sm text-white">Choose from anime heroes, fiction legends, eternal beings, and social media personalities for endless interactive experiences.</p>
                         </CardContent>
                     </Card>
 
-                    <Card className="group border-0 shadow-none">
-                        <CardHeader className="pb-3">
-                            <CardDecorator>
-                                <Settings2
-                                    className="size-6"
-                                    aria-hidden
-                                />
-                            </CardDecorator>
-
-                            <h3 className="mt-6 font-medium">You have full control</h3>
-                        </CardHeader>
-
-                        <CardContent>
-                            <p className="mt-3 text-sm">From design elements to functionality, you have complete control to create a unique and personalized experience.</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="group border-0 shadow-none">
+                    <Card className="group border-0 shadow-none bg-stone-950">
                         <CardHeader className="pb-3">
                             <CardDecorator>
                                 <Sparkles
@@ -54,11 +54,11 @@ export default function Features() {
                                 />
                             </CardDecorator>
 
-                            <h3 className="mt-6 font-medium">Powered By AI</h3>
+                            <h3 className="mt-6 font-medium text-white">Immersive Experience</h3>
                         </CardHeader>
 
                         <CardContent>
-                            <p className="mt-3 text-sm">Elements to functionality, you have complete control to create a unique experience.</p>
+                            <p className="mt-3 text-sm text-white">Step into realistic conversations where AI characters respond naturally, creating unforgettable interactive storytelling.</p>
                         </CardContent>
                     </Card>
                 </div>
@@ -77,6 +77,6 @@ const CardDecorator = ({ children }: { children: ReactNode }) => (
             aria-hidden
             className="bg-radial to-background absolute inset-0 from-transparent to-75%"
         />
-        <div className="dark:bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t bg-white">{children}</div>
+        <div className="dark:bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t bg-stone-950">{children}</div>
     </div>
 )

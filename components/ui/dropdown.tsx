@@ -111,7 +111,7 @@ export function FictionSelect({ onSelect, value }: Props) {
       </SelectTrigger>
 
       <SelectContent side="top"  className="
-      bg-stone-900 text-white">
+      bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>Fiction Characters</SelectLabel>
           {FICTION_CHARACTERS.map((char) => (
@@ -166,7 +166,7 @@ export function XogSelect({ onSelect, value }: Props) {
       </SelectTrigger>
 
       <SelectContent side="top"  className="
-      bg-stone-900 text-white">
+      bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>X og Characters</SelectLabel>
           {XOG_CHARACTERS.map((char) => (
@@ -220,7 +220,7 @@ export function EthSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top"  className="w-[240px] bg-stone-900 text-white">
+      <SelectContent side="top"  className="w-[240px] bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>Eternal Characters</SelectLabel>
           {Eternals_CHARACTERS.map((char) => (
@@ -258,11 +258,11 @@ export function NavSelect({ onSelect, currentPath }: NavProps) {
 
   return (
     <Select onValueChange={onSelect}>
-      <SelectTrigger className="w-full max-w-[120px] md:w-[120px] flex items-center gap-2 bg-transparent md:bg-stone-800">
-        <span className="text-sm">{currentLabel}</span>
+      <SelectTrigger className="w-full max-w-[120px] md:w-[120px] flex  items-center gap-2 bg-transparent md:bg-stone-800">
+        <span className="text-sm text-white">{currentLabel}</span>
       </SelectTrigger>
 
-      <SelectContent side="top" className="bg-stone-900 text-white">
+      <SelectContent side="top" className="bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>Navigate to</SelectLabel>
           {navOptions.map((opt) => (

@@ -14,10 +14,8 @@ import { ArrowRight, Menu, Rocket, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const menuItems = [
-    { name: 'Features', href: '#' },
-    { name: 'Solution', href: '#' },
-    { name: 'Pricing', href: '#' },
-    { name: 'About', href: '#' },
+    { name: 'Features', href: '#FeaturesSection' },
+    { name: 'About', href: '/about' },
 ]
 
 export default function HeroSection() {
@@ -49,19 +47,22 @@ export default function HeroSection() {
                                     aria-label="home"
                                     className="flex items-center space-x-2">
                                     <Image src={Logo} width={50} height={50} alt='logo' />
+                                    <span className="text-white text-lg font-semibold">Reimagine AI</span>
                                 </Link>
 
-                                <button
-                                    onClick={() => setMenuState(!menuState)}
-                                    aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
-                                    className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
-                                    <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                    <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-                                </button>
+                                <div className="flex w-fit flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6 lg:hidden">
+                                    <Button
+                                        asChild
+                                        size="sm">
+                                        <Link href="/chat/anime">
+                                            <span>get Started</span>
+                                        </Link>
+                                    </Button>
+                                </div>
                             </div>
 
                             <div className="bg-transparent in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 border-transparent p-6 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                                <div className="lg:pr-4">
+                                <div className="lg:pr-4 hidden lg:block">
                                     <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
                                         {menuItems.map((item, index) => (
                                             <li key={index}>
@@ -79,11 +80,12 @@ export default function HeroSection() {
                                     <Button
                                         asChild
                                         size="sm">
-                                        <Link href="#">
-                                            <span>Get Started</span>
+                                        <Link href="/chat/anime">
+                                            <span>get Started</span>
                                         </Link>
                                     </Button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -113,32 +115,32 @@ export default function HeroSection() {
                                     href="/"
                                     className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3">
                                     <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">New</span>
-                                    <span className="text-sm text-white">Introduction Tailark Html</span>
+                                    <span className="text-sm text-white">Welcome to Reimaging</span>
                                     <span className="bg-(--color-border) block h-4 w-px"></span>
 
                                     <ArrowRight className="size-4" />
                                 </Link>
 
                                 <h1 className="mt-8 text-4xl text-white font-semibold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-                                    Tame the Wild West <br /> of Frontend Development
+                                   <span className='text-primary'>Reimagine</span> is Empowering AI to imagine <br /> your favorite character in real life
                                 </h1>
-                                <p className="mx-auto mt-8 hidden max-w-2xl text-white text-wrap text-lg sm:block">Tailwindcss highly customizable components for building modern websites and applications that look and feel the way you mean it.</p>
-                                <p className="mx-auto mt-6 max-w-2xl text-white text-wrap sm:hidden">Highly customizable components for building modern websites and applications, with your personal spark.</p>
+                                <p className="mx-auto mt-8 hidden max-w-2xl text-white text-wrap text-lg sm:block">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>
+                                <p className="mx-auto mt-6 max-w-2xl text-white text-wrap sm:hidden">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>
 
                                 <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                                     <Button
                                         size="lg"
                                         asChild>
-                                        <Link href="#">
+                                        <Link href="/chat/anime">
                                             <Rocket className="relative size-4" />
-                                            <span className="text-nowrap">Start Building</span>
+                                            <span className="text-nowrap">let's have fun</span>
                                         </Link>
                                     </Button>
                                     <Button
                                         size="lg"
                                         variant="outline"
                                         asChild>
-                                        <Link href="#">
+                                        <Link href="/about">
                                             <span className="text-nowrap">Learn More</span>
                                         </Link>
                                     </Button>
