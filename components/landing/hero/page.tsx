@@ -116,7 +116,7 @@ export default function HeroSection() {
                                     href="/"
                                     className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3">
                                     <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">New</span>
-                                    <span className="text-sm text-white">Welcome to Reimaging</span>
+                                    <span className="text-sm text-white">Welcome to Reimagine</span>
                                     <span className="bg-(--color-border) block h-4 w-px"></span>
 
                                     <ArrowRight className="size-4" />
