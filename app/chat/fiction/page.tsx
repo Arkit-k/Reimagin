@@ -218,8 +218,11 @@ export default function ChatwithKYemon() {
             <Link href="/chat/eternals" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Eternal
             </Link>
-            
-            
+            <Link href="/chat/ellite" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+              Elite
+            </Link>
+
+
           </div>
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden md:block">

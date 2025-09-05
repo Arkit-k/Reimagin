@@ -14,7 +14,7 @@ type ChatInputDemoProps = {
   isCentered?: boolean;
   selectedCharacterId?: string | null;
   onCharacterSelect?: (id: string) => void;
-  selectType?: "anime" | "fiction" | "xog" | "eternals";
+  selectType?: "anime" | "fiction" | "xog" | "eternals" | "elites";
 };
 
 export function ChatInputDemo({ onSubmit, placeholder, isCentered, selectedCharacterId: propSelectedCharacterId, onCharacterSelect, selectType = "anime" }: ChatInputDemoProps) {

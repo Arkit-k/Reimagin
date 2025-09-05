@@ -39,7 +39,7 @@ export default function HeroSection() {
             <header className="bg-transparent">
                 <nav
                     data-state={menuState && 'active'}
-                    className="fixed z-20 w-full bg-transparent md:relative bg-transparent">
+                    className="fixed z-20 w-full bg-transparent">
                     <div className="m-auto max-w-5xl px-6 bg-transparent">
                         <div className="flex flex-wrap items-center bg-transparent justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                             <div className="flex w-full justify-between bg-transparent lg:w-auto">
@@ -93,7 +93,7 @@ export default function HeroSection() {
                 </nav>
             </header>
             <main className="overflow-hidden">
-                <section className="relative" style={{ minHeight: '100vh' }}>
+                <section className="relative flex flex-col justify-end" style={{ minHeight: '100vh' }}>
                     <video
                         ref={videoRef}
                         autoPlay
@@ -109,7 +109,7 @@ export default function HeroSection() {
                     >
                         <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
                     </video>
-                    <div className="relative py-32 lg:py-36 z-20">
+                    <div className="relative pb-32 lg:pb-36 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
                             <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
                                 <Link
@@ -123,7 +123,7 @@ export default function HeroSection() {
                                 </Link>
 
                                 <h1 className="mt-8 text-4xl text-white font-semibold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-                                   <span className='text-primary'>Reimagine</span> is Empowering AI to imagine <br /> your favorite character in real life
+                                   <span className='text-primary'>Reimagine</span> is Empowering AI to imagine <br /> and chat with Characters
                                 </h1>
                                 <p className="mx-auto mt-8 hidden max-w-2xl text-white text-wrap text-lg sm:block">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>
                                 <p className="mx-auto mt-6 max-w-2xl text-white text-wrap sm:hidden">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>

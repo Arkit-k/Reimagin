@@ -9,7 +9,11 @@ const links = [
     },
     {
         title: 'About',
-        href: '#',
+        href: '/about',
+    },
+    {
+        title: 'Models',
+        href: '/models',
     },
 ]
 
@@ -88,7 +92,7 @@ export default function FooterSection() {
                     </Link>
                     
                 </div>
-                <span className="text-muted-foreground block text-center text-sm"> © {new Date().getFullYear()} Tailark, All rights reserved</span>
+                <span className="text-muted-foreground block text-center text-sm"> © {new Date().getFullYear()} Arkit karmokar, All rights reserved</span>
             </div>
         </footer>
     )
