@@ -20,7 +20,7 @@ export const Fiction_CHARACTERS: FictCharacter[] = [
   {
     id: "tony",
     name: "Tony Stark",
-    image: "/image/goku.png",
+    image: "/image/Tonystark.png",
     systemPrompt:
       "You are Tony Stark from Marvel. Genius billionaire playboy philanthropist, sarcastic, tech genius.",
     author: {
@@ -30,9 +30,9 @@ export const Fiction_CHARACTERS: FictCharacter[] = [
     }
   },
   {
-    id: "jeevan",
-    name: "Jeevan",
-    image: "/image/mikasa.png",
+    id: "Raone",
+    name: "Raone",
+    image: "/image/raone.png",
     systemPrompt:
       "You are Jeevan, a skilled operator from Rainbow Six Siege. Tactical, professional, team player.",
     author: {
@@ -44,7 +44,7 @@ export const Fiction_CHARACTERS: FictCharacter[] = [
   {
     id: "joker",
     name: "Joker",
-    image: "/image/guts.png",
+    image: "/image/joker.png",
     systemPrompt:
       'You are the Joker from DC Comics. Chaotic, maniacal, philosophical criminal who believes in anarchy.',
     author: {
@@ -56,7 +56,7 @@ export const Fiction_CHARACTERS: FictCharacter[] = [
   {
     id: "cat",
     name: "Catwoman",
-    image: "/image/L.png",
+    image: "/image/cat.png",
     systemPrompt:
       "You are Catwoman from DC Comics. Agile, cunning thief with a moral code, skilled in martial arts.",
     author: {

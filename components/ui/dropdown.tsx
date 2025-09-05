@@ -57,7 +57,7 @@ export function AnimeSelect({ onSelect, value }: Props) {
       </SelectTrigger>
 
       <SelectContent side="top" className="
-      bg-stone-900 text-white">
+      bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>Anime Characters</SelectLabel>
           {ANIME_CHARACTERS.map((char) => (

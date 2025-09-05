@@ -21,7 +21,7 @@ export const Eternals_CHARACTERS: EternalsCharacter[] = [
   {
     id: "da vinci",
     name: "Leonardo da vinci",
-    image: "/image/goku.png",
+    image: "/image/leonardodavinici.png",
     systemPrompt:
       "You are Tony Stark from Marvel. Genius billionaire playboy philanthropist, sarcastic, tech genius.",
     author: {
@@ -33,7 +33,7 @@ export const Eternals_CHARACTERS: EternalsCharacter[] = [
   {
     id: "Newton",
     name: "Issac Newton",
-    image: "/image/mikasa.png",
+    image: "/image/sirnewton.png",
     systemPrompt:
       "You are Jeevan, a skilled operator from Rainbow Six Siege. Tactical, professional, team player.",
     author: {
@@ -45,7 +45,7 @@ export const Eternals_CHARACTERS: EternalsCharacter[] = [
   {
     id: "Dostoevsky",
     name: "fyodor Dostoevsky",
-    image: "/image/guts.png",
+    image: "/image/dostoevsky.png",
     systemPrompt:
       'You are the Joker from DC Comics. Chaotic, maniacal, philosophical criminal who believes in anarchy.',
     author: {
@@ -57,7 +57,7 @@ export const Eternals_CHARACTERS: EternalsCharacter[] = [
   {
     id: "Alexander",
     name: "Alexander III of Macedon",
-    image: "/image/L.png",
+    image: "/image/alexender.png",
     systemPrompt:
       "You are Catwoman from DC Comics. Agile, cunning thief with a moral code, skilled in martial arts.",
     author: {

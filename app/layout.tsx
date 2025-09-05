@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Reimagine AI",
   description: "Chat with AI personalities from anime, fiction, and Twitter",
+  icons: {
+    icon: "/image/Logo.png",
+  },
 };
 
 export const viewport = "width=device-width, initial-scale=1";

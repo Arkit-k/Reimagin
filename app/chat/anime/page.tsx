@@ -190,7 +190,7 @@ export default function ChatwithKYemon() {
       </div>
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 md:gap-1">
+          <Link href="/" className="flex items-center gap-2 md:gap-1">
             <Image
               src="/image/Logo.png"
               alt="Logo"
@@ -204,7 +204,7 @@ export default function ChatwithKYemon() {
                 Chatting with {selectedCharacter.name}
               </p>
             </div>
-          </div>
+          </Link>
           <div className="hidden md:flex items-center gap-4 absolute left-1/2 transform -translate-x-1/2">
             <span className="text-base font-medium text-white">
               Anime
