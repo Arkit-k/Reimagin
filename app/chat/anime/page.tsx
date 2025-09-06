@@ -25,6 +25,7 @@ export default function ChatwithKYemon() {
   const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
@@ -82,6 +83,7 @@ export default function ChatwithKYemon() {
     }
 
     setMessages((m) => [...m, { role: "user", text: prompt }]);
+    setIsThinking(true);
 
     try {
       const res = await fetch("/api/chat", {
@@ -127,6 +129,7 @@ export default function ChatwithKYemon() {
       const decoder = new TextDecoder();
       let kymonText = "";
       let buffer = "";
+      let hasStartedResponding = false;
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -141,6 +144,10 @@ export default function ChatwithKYemon() {
           try {
             const event = JSON.parse(jsonStr);
             if (event.type === "text-delta" && typeof event.delta === "string") {
+              if (!hasStartedResponding) {
+                setIsThinking(false);
+                hasStartedResponding = true;
+              }
               kymonText += event.delta;
               setMessages((prev) => {
                 const last = prev[prev.length - 1];
@@ -161,6 +168,7 @@ export default function ChatwithKYemon() {
       });
       // Remove the user message if there was an error
       setMessages((prev) => prev.slice(0, -1));
+      setIsThinking(false);
     }
   };
 
@@ -290,6 +298,17 @@ export default function ChatwithKYemon() {
                   <ChatMessageContent content={message.text} />
                 </ChatMessage>
               ))}
+              {isThinking && (
+                <ChatMessage
+                  key="thinking"
+                  id="thinking"
+                  type="incoming"
+                  variant="bubble"
+                >
+                  <ChatMessageAvatar imageSrc={selectedCharacter.image} name={selectedCharacter.name} />
+                  <ChatMessageContent content={`${selectedCharacter.name} is thinking....`} />
+                </ChatMessage>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </div>
