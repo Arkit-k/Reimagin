@@ -18,7 +18,7 @@ export default function AboutPage() {
         <div className="space-y-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <h2 className="text-3xl font-bold text-white">Hi, I&apos;m Arkit Karmokar</h2>
+              <h2 className="text-3xl font-bold text-white">Hi, I&apos;m <Link href='https://www.arkitworks.xyz/'>Arkit Karmokar</Link></h2>
               <Link href="">
                 <div className="flex items-center gap-2">
                   <Image src="/image/rythm.png" alt="Rythm" height={30} width={30} />
