@@ -82,7 +82,7 @@ export default function ModelsPage() {
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="space-y-20">
-            {categories.map((category, categoryIndex) => (
+            {categories.map((category) => (
               <div key={category.id} className={category.bgColor + " rounded-3xl p-8 md:p-12"}>
                 <div className="text-center mb-12">
                   <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} text-white mb-6`}>
@@ -95,7 +95,7 @@ export default function ModelsPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {category.characters.map((character, index) => (
+                  {category.characters.map((character) => (
                     <Card key={character.id} className="group relative overflow-hidden bg-gradient-to-br from-stone-800/80 to-stone-900/80 backdrop-blur-xl border border-stone-700/50 hover:border-stone-600/70 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 hover:-translate-y-1">
                       {/* Animated background gradient */}
                       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

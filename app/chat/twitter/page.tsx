@@ -279,16 +279,16 @@ export default function ChatwithKYemon() {
              <p className="text-white text-sm mb-4">Try asking:</p>
              <div className="flex flex-wrap justify-center gap-2">
                <button
-                 onClick={() => handleSubmit("What's holycow next startup idea?")}
+                 onClick={() => handleSubmit("What&apos;s holycow next startup idea?")}
                  className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                >
-                 What's holycow next startup idea?
+                 What&apos;s holycow next startup idea?
                </button>
                <button
-                 onClick={() => handleSubmit("What's next banger tweet?")}
+                 onClick={() => handleSubmit("What&apos;s next banger tweet?")}
                  className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                >
-                 What's next banger tweet?
+                 What&apos;s next banger tweet?
                </button>
                <button
                  onClick={() => handleSubmit("Come on, C++ still better?")}
