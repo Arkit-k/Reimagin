@@ -5,7 +5,7 @@ import Image from 'next/image'
 const links = [
     {
         title: 'Features',
-        href: '#',
+        href: '#FeaturesSection',
     },
     {
         title: 'About',
@@ -26,7 +26,7 @@ export default function FooterSection() {
                     aria-label="go home"
                     className="mx-auto flex items-center justify-center gap-0">
 
-                    <Image src={Logo} width={200} height={200} alt="logo" />
+                    <Image src={Logo} width={100} height={100} alt="logo" />
                     <span className="text-xl font-extrabold">Reimagine ai</span>
 
                 </Link>
