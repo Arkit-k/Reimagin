@@ -61,7 +61,7 @@ export default function ContributePage() {
               <li>Add the character image to the <code className="bg-gray-700 px-2 py-1 rounded">public/image/</code> folder</li>
               <li>Add a new object to the <code className="bg-gray-700 px-2 py-1 rounded">ANIME_CHARACTERS</code> array</li>
               <li>Ensure the ID is unique and follows lowercase naming</li>
-              <li>Write a clear, concise system prompt that captures the character's personality</li>
+              <li>Write a clear, concise system prompt that captures the character&apos;s personality</li>
             </ol>
 
             <h3 className="text-xl font-medium mb-3">Example:</h3>
@@ -121,7 +121,7 @@ export default function ContributePage() {
               <li>Add the personality image to the <code className="bg-gray-700 px-2 py-1 rounded">public/image/</code> folder</li>
               <li>Add a new object to the <code className="bg-gray-700 px-2 py-1 rounded">Tweet_CHARACTERS</code> array</li>
               <li>Include the Twitter handle in the author link</li>
-              <li>Capture the personality's unique traits and communication style</li>
+              <li>Capture the personality&apos;s unique traits and communication style</li>
             </ol>
 
             <h3 className="text-xl font-medium mb-3">Example:</h3>
@@ -143,7 +143,7 @@ export default function ContributePage() {
           <section className="bg-gray-800/50 rounded-lg p-6">
             <h2 className="text-2xl font-semibold mb-4">Best Practices</h2>
             <ul className="list-disc list-inside text-gray-300 space-y-2">
-              <li><strong>Unique IDs:</strong> Ensure each character has a unique ID that doesn't conflict with existing ones</li>
+              <li><strong>Unique IDs:</strong> Ensure each character has a unique ID that doesn&apos;t conflict with existing ones</li>
               <li><strong>Image Quality:</strong> Use high-quality, square images (preferably 200x200px or larger)</li>
               <li><strong>System Prompts:</strong> Keep prompts concise but descriptive, focusing on key personality traits</li>
               <li><strong>Author Attribution:</strong> Always credit the original creator or company appropriately</li>

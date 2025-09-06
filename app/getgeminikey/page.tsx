@@ -32,7 +32,7 @@ export default function GetGeminiKeyPage() {
           </li>
 
           <li>
-            <strong>Sign in with your Google account:</strong> If you're not already signed in, click the "Sign in" button and use your Google credentials.
+            <strong>Sign in with your Google account:</strong> If you&apos;re not already signed in, click the &quot;Sign in&quot; button and use your Google credentials.
           </li>
 
           <li>
@@ -40,22 +40,22 @@ export default function GetGeminiKeyPage() {
           </li>
 
           <li>
-            <strong>Enable the Gemini API:</strong> Make sure the Gemini API is enabled for your project. If not, you'll be prompted to enable it.
+            <strong>Enable the Gemini API:</strong> Make sure the Gemini API is enabled for your project. If not, you&apos;ll be prompted to enable it.
           </li>
 
           <li>
-            <strong>Create an API key:</strong> Click on "Create API key" or "Get API key". You may need to agree to the terms of service.
+            <strong>Create an API key:</strong> Click on &quot;Create API key&quot; or &quot;Get API key&quot;. You may need to agree to the terms of service.
           </li>
 
           <li>
-            <strong>Copy your API key:</strong> Once created, copy the API key and store it securely. You'll need this key to use Gemini in this application.
+            <strong>Copy your API key:</strong> Once created, copy the API key and store it securely. You&apos;ll need this key to use Gemini in this application.
           </li>
         </ol>
 
         <div className="bg-yellow-900 border border-yellow-600 rounded p-4">
           <h3 className="font-semibold text-yellow-200 mb-2">Important Notes:</h3>
           <ul className="list-disc list-inside space-y-1 text-yellow-100">
-            <li>Keep your API key secure and don't share it publicly</li>
+            <li>Keep your API key secure and don&apos;t share it publicly</li>
             <li>Google may charge for API usage beyond the free tier</li>
             <li>You can manage your API keys in the Google Cloud Console</li>
           </ul>

@@ -134,7 +134,7 @@ export default function HeroSection() {
                                         asChild>
                                         <Link href="/chat/anime">
                                             <Rocket className="relative size-4" />
-                                            <span className="text-nowrap">let's have fun</span>
+                                            <span className="text-nowrap">let&apos;s have fun</span>
                                         </Link>
                                     </Button>
                                     <Button

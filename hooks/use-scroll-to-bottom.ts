@@ -9,7 +9,7 @@ import {
 } from "react";
 
 export function useScrollToBottom<T extends HTMLElement>(): [
-	RefObject<T>,
+	RefObject<T | null>,
 	boolean,
 	() => void,
 ] {

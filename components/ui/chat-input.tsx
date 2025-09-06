@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ShineBorder } from "../magicui/shine-border";
 import { ANIME_CHARACTERS } from "@/system-prompts/anime-prompts";
 import { Fiction_CHARACTERS as FICTION_CHARACTERS } from "@/system-prompts/fiction-prompts";
 import { Tweet_CHARACTERS as XOG_CHARACTERS } from "@/system-prompts/x-prompts";
