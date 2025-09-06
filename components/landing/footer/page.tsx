@@ -24,8 +24,11 @@ export default function FooterSection() {
                 <Link
                     href="/"
                     aria-label="go home"
-                    className="mx-auto block size-fit">
+                    className="mx-auto flex items-center justify-center gap-0">
+
                     <Image src={Logo} width={200} height={200} alt="logo" />
+                    <span className="text-xl font-extrabold">Reimagine ai</span>
+
                 </Link>
 
                 <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
