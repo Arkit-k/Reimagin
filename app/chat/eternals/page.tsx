@@ -25,6 +25,7 @@ export default function ChatwithKYemon() {
   const [selectedCharacter, setSelectedCharacter] = useState<EternalsCharacter>(Eternals_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
@@ -81,6 +82,7 @@ export default function ChatwithKYemon() {
     }
 
     setMessages((m) => [...m, { role: "user", text: prompt }]);
+    setIsThinking(true);
 
     try {
       const res = await fetch("/api/chat", {
@@ -126,6 +128,7 @@ export default function ChatwithKYemon() {
       const decoder = new TextDecoder();
       let kymonText = "";
       let buffer = "";
+      let hasStartedResponding = false;
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -140,6 +143,10 @@ export default function ChatwithKYemon() {
           try {
             const event = JSON.parse(jsonStr);
             if (event.type === "text-delta" && typeof event.delta === "string") {
+              if (!hasStartedResponding) {
+                setIsThinking(false);
+                hasStartedResponding = true;
+              }
               kymonText += event.delta;
               setMessages((prev) => {
                 const last = prev[prev.length - 1];
@@ -160,6 +167,7 @@ export default function ChatwithKYemon() {
       });
       // Remove the user message if there was an error
       setMessages((prev) => prev.slice(0, -1));
+      setIsThinking(false);
     }
   };
 
@@ -267,6 +275,29 @@ export default function ChatwithKYemon() {
              onCharacterSelect={(id) => setSelectedCharacter(Eternals_CHARACTERS.find(c => c.id === id) || Eternals_CHARACTERS[0])}
              selectType="eternals"
            />
+           <div className="mt-6">
+             <p className="text-white text-sm mb-4">Try asking:</p>
+             <div className="flex flex-wrap justify-center gap-2">
+               <button
+                 onClick={() => handleSubmit("What would be your next invention if you were alive?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 What would be your next invention if you were alive?
+               </button>
+               <button
+                 onClick={() => handleSubmit("Why dying is living?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 Why dying is living?
+               </button>
+               <button
+                 onClick={() => handleSubmit("Why you want to win the world?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 Why you want to win the world?
+               </button>
+             </div>
+           </div>
          </div>
        </div>
       ) : (
@@ -289,6 +320,17 @@ export default function ChatwithKYemon() {
                   <ChatMessageContent content={message.text} />
                 </ChatMessage>
               ))}
+              {isThinking && (
+                <ChatMessage
+                  key="thinking"
+                  id="thinking"
+                  type="incoming"
+                  variant="bubble"
+                >
+                  <ChatMessageAvatar imageSrc={selectedCharacter.image} name={selectedCharacter.name} />
+                  <ChatMessageContent content={`${selectedCharacter.name} is thinking....`} />
+                </ChatMessage>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </div>

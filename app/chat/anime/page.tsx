@@ -276,6 +276,29 @@ export default function ChatwithKYemon() {
              onCharacterSelect={(id) => setSelectedCharacter(ANIME_CHARACTERS.find(c => c.id === id) || ANIME_CHARACTERS[0])}
              selectType="anime"
            />
+           <div className="mt-6">
+             <p className="text-white text-sm mb-4">Try asking:</p>
+             <div className="flex flex-wrap justify-center gap-2">
+               <button
+                 onClick={() => handleSubmit("How are you?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 How are you?
+               </button>
+               <button
+                 onClick={() => handleSubmit("Why do you even exist?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 Why do you even exist?
+               </button>
+               <button
+                 onClick={() => handleSubmit("What are you going to do now?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 What are you going to do now?
+               </button>
+             </div>
+           </div>
          </div>
        </div>
       ) : (
