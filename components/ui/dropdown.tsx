@@ -276,7 +276,7 @@ export function ElitesSelect({ onSelect, value }: Props) {
       </SelectTrigger>
 
       <SelectContent side="top" className="
-      bg-stone-900 text-white">
+      bg-transparent text-white">
         <SelectGroup>
           <SelectLabel>Elite Characters</SelectLabel>
           {Elites_CHARACTERS.map((char) => (
