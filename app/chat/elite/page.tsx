@@ -276,6 +276,23 @@ export default function ChatwithKYemon() {
              onCharacterSelect={(id) => setSelectedCharacter(Elites_CHARACTERS.find(c => c.id === id) || Elites_CHARACTERS[0])}
              selectType="elites"
            />
+           <div className="mt-6">
+             <p className="text-white text-sm mb-4">Try asking:</p>
+             <div className="flex flex-wrap justify-center gap-2">
+               <button
+                 onClick={() => handleSubmit("Why software engineering is so hard?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 Why software engineering is so hard?
+               </button>
+               <button
+                 onClick={() => handleSubmit("What's your best chess match of your life?")}
+                 className="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+               >
+                 Whats your best chess match of your life?
+               </button>
+             </div>
+           </div>
          </div>
        </div>
      ) : (

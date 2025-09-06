@@ -308,7 +308,7 @@ export function NavSelect({ onSelect, currentPath }: NavProps) {
     { label: "Fiction", path: "/chat/fiction" },
     { label: "Twitter", path: "/chat/twitter" },
     { label: "Eternal", path: "/chat/eternals" },
-    { label: "Elite", path: "/chat/ellite" },
+    { label: "Elite", path: "/chat/elite" },
   ];
 
   const currentLabel = navOptions.find(opt => opt.path === currentPath)?.label || "Navigate";

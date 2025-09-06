@@ -225,7 +225,7 @@ export default function ChatwithKYemon() {
             <span className="text-base font-medium text-white">
               Eternals
             </span>
-            <Link href="/chat/ellite" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
+            <Link href="/chat/elite" className="text-base font-medium text-gray-300 hover:text-white transition-colors">
               Elite
             </Link>
           </div>

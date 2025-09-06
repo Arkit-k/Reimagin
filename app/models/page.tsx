@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowRight, Users, Sword, BookOpen, Twitter, Star } from 'lucide-react'
+import { ArrowRight, ArrowLeft, Users, Sword, BookOpen, Twitter, Star } from 'lucide-react'
 import { ANIME_CHARACTERS } from '@/system-prompts/anime-prompts'
 import { Fiction_CHARACTERS } from '@/system-prompts/fiction-prompts'
 import { Eternals_CHARACTERS } from '@/system-prompts/eternals-prompts'
@@ -69,6 +69,15 @@ const truncateText = (text: string, wordLimit: number = 6): string => {
 export default function ModelsPage() {
   return (
     <div className="min-h-screen bg-stone-900">
+      {/* Home Button */}
+      <div className="mx-auto max-w-7xl px-6 md:px-12 py-4">
+        <Button variant="outline" className="text-black" asChild>
+          <Link href="/">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Home
+          </Link>
+        </Button>
+      </div>
       {/* Categories Section */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6 md:px-12">
@@ -138,7 +147,7 @@ export default function ModelsPage() {
                             className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white font-medium shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 group-hover:scale-105"
                             asChild
                           >
-                            <Link href={`/chat/${category.id === 'twitter' ? 'twitter' : category.id === 'elite' ? 'ellite' : category.id}`}>
+                            <Link href={`/chat/${category.id === 'twitter' ? 'twitter' : category.id === 'elite' ? 'elite' : category.id}`}>
                               Chat Now
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                             </Link>
@@ -151,7 +160,7 @@ export default function ModelsPage() {
 
                 <div className="text-center mt-8">
                   <Button variant="outline" size="lg" asChild>
-                    <Link href={`/chat/${category.id === 'twitter' ? 'twitter' : category.id === 'elite' ? 'ellite' : category.id}`}>
+                    <Link href={`/chat/${category.id === 'twitter' ? 'twitter' : category.id === 'elite' ? 'elite' : category.id}`}>
                       Explore {category.title}
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Link>

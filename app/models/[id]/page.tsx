@@ -23,8 +23,14 @@ export default async function ModelDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-stone-900 text-white">
       <div className="mx-auto max-w-4xl px-6 py-16">
-        {/* Back Button */}
-        <div className="mb-8">
+        {/* Navigation Buttons */}
+        <div className="mb-8 flex gap-4">
+          <Button variant="outline" className='text-black' asChild>
+            <Link href="/">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Home
+            </Link>
+          </Button>
           <Button variant="outline" className='text-black' asChild>
             <Link href="/models">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -128,7 +134,7 @@ export default async function ModelDetailPage({ params }: PageProps) {
               className="w-full"
               asChild
             >
-              <Link href={`/chat/${model.category === 'twitter' ? 'twitter' : model.category === 'elite' ? 'ellite' : model.category}`}>
+              <Link href={`/chat/${model.category === 'twitter' ? 'twitter' : model.category === 'elite' ? 'elite' : model.category}`}>
                 Chat with {model.name}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
