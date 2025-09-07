@@ -186,6 +186,7 @@ export default function ChatwithKYemon() {
             autoPlay
             loop={isMobile}
             playsInline
+            muted={!isMobile}
             preload="auto"
             className="absolute inset-0 w-full h-full object-cover"
             onEnded={isMobile ? undefined : (e) => {
