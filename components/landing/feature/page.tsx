@@ -25,7 +25,7 @@ export default function Features() {
     <section id="FeaturesSection" className="py-16 md:py-32">
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
-          <h2 className="text-balance text-4xl font-semibold lg:text-5xl text-white">Why Choose Reimagine</h2>
+          <h2 className="text-balance text-4xl font-semibold lg:text-5xl text-white">Why Choose Reimagin</h2>
           <p className="mt-4 text-white">Experience AI-powered conversations with your favorite characters brought to life.</p>
         </div>
         <div className="@min-4xl:max-w-full @min-4xl:grid-cols-3 mx-auto mt-8 grid max-w-sm gap-6 [--color-background:var(--color-muted)] [--color-card:var(--color-muted)] *:text-center md:mt-16 dark:[--color-muted:var(--color-zinc-900)]">

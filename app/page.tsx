@@ -82,7 +82,7 @@ export default function Home() {
             </h1>
             <div className="flex items-center justify-center gap-2 sm:gap-3">
               <span className='text-primary text-3xl sm:text-4xl md:text-6xl font-bold'>
-                Reimagine AI
+                Reimagin AI
               </span>
             </div>
           </div>

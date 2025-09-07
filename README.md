@@ -1,6 +1,6 @@
-# Reimagine AI
+# Reimagin AI
 
-Reimagine AI is a cutting-edge platform that empowers AI to bring your favorite characters to life through interactive conversations. Transform anime icons, fictional heroes, legendary figures, and more into engaging chat companions powered by advanced AI technology.
+Reimagin AI is a cutting-edge platform that empowers AI to bring your favorite characters to life through interactive conversations. Transform anime icons, fictional heroes, legendary figures, and more into engaging chat companions powered by advanced AI technology.
 
 ## Features
 

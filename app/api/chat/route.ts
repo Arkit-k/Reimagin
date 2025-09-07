@@ -39,11 +39,9 @@ function isValidApiKey(apiKey: string): boolean {
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get('origin');
   const allowedOrigins = [
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'https://your-project-name.vercel.app', // Replace with your Vercel domain
-    'https://yourdomain.com', // Replace with your custom domain if any
-    'https://www.yourdomain.com'
+    'https://reimagin.xyz',
+    'https://www.reimagin.xyz',
+    'https://reimagine-mruj.vercel.app'
   ];
 
   const response = new Response(null, { status: 200 });
@@ -63,11 +61,9 @@ export async function POST(req: NextRequest) {
     // Security: CORS and Origin validation
     const origin = req.headers.get('origin');
     const allowedOrigins = [
-      'http://localhost:3000',
-      'https://localhost:3000',
-      'https://your-project-name.vercel.app', // Replace with your Vercel domain
-      'https://yourdomain.com', // Replace with your custom domain if any
-      'https://www.yourdomain.com'
+      'https://reimagin.xyz',
+      'https://www.reimagin.xyz',
+      'https://reimagine-mruj.vercel.app'
     ];
 
     if (origin && !allowedOrigins.includes(origin)) {

@@ -58,7 +58,7 @@ export default function AboutPage() {
           </div>
 
           <div className="border-t border-gray-700 pt-8">
-            <h3 className="text-2xl font-semibold mb-6 text-white">The Inspiration Behind Reimagine AI Chat</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-white">The Inspiration Behind Reimagin AI Chat</h3>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
                 The idea for Reimagine AI Chat was born from my fascination with both anime culture and artificial intelligence.

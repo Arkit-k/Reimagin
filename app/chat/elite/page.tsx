@@ -211,7 +211,7 @@ export default function ChatwithKYemon() {
               className="rounded md:w-[80px] md:h-[80px]"
             />
             <div className="flex flex-col">
-              <h1 className="text-lg md:text-xl font-bold tracking-tight">Reimagine</h1>
+              <h1 className="text-lg md:text-xl font-bold tracking-tight">Reimagin</h1>
               <p className="text-xs md:text-sm text-muted-foreground">
                 Chatting with {selectedCharacter.name}
               </p>
@@ -236,7 +236,7 @@ export default function ChatwithKYemon() {
           </div>
           <div className="flex items-center gap-4 md:gap-6">
             <div className="hidden md:block">
-              <GitHubStarsButton username="Arkit-k" repo="Reimagine" showStars={false} />
+              <GitHubStarsButton username="Arkit-k" repo="Reimagin" showStars={false} />
             </div>
             <Link
               href={selectedCharacter.author.link}

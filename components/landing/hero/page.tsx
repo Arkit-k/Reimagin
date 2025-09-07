@@ -48,7 +48,7 @@ export default function HeroSection() {
                                     aria-label="home"
                                     className="flex items-center space-x-2">
                                     <Image src={Logo} width={50} height={50} alt='logo' />
-                                    <span className="text-white text-lg font-semibold">Reimagine AI</span>
+                                    <span className="text-white text-lg font-semibold">Reimagin AI</span>
                                 </Link>
 
                                 <div className="flex w-fit flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6 lg:hidden">
@@ -116,7 +116,7 @@ export default function HeroSection() {
                                     href="/"
                                     className="rounded-(--radius) mx-auto flex w-fit items-center gap-2 border p-1 pr-3">
                                     <span className="bg-muted rounded-[calc(var(--radius)-0.25rem)] px-2 py-1 text-xs">New</span>
-                                    <span className="text-sm text-white">Welcome to Reimagine</span>
+                                    <span className="text-sm text-white">Welcome to Reimagin</span>
                                     <span className="bg-(--color-border) block h-4 w-px"></span>
 
                                     <ArrowRight className="size-4" />

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Reimagine AI",
+  title: "Reimagin AI",
   description: "Chat with AI personalities from anime, fiction, and Twitter",
   icons: {
     icon: "/image/Logo.png",
