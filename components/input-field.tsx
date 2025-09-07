@@ -21,8 +21,6 @@ export function ChatInputDemo({ onSubmit, placeholder, isCentered, selectedChara
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-
-
   const handleSubmit = async () => {
     if (!value.trim()) return;
     setIsLoading(true);

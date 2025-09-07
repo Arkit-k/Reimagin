@@ -2,18 +2,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 import { toast } from 'sonner';
 import Image from "next/image";
-import { Star } from 'lucide-react';
 
 import {
   ChatMessage,
   ChatMessageAvatar,
   ChatMessageContent,
 } from "@/components/ui/chat-message";
-import { Tweet_CHARACTERS as XOG_CHARACTERS, type TweetCharacter, X_BACKGROUNDS } from "@/system-prompts/x-prompts";
+import { Tweet_CHARACTERS as XOG_CHARACTERS, type TweetCharacter } from "@/system-prompts/x-prompts";
 import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars";
 
@@ -28,7 +26,7 @@ export default function ChatwithKYemon() {
   const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
+  const { incrementMessageCount } = useApiKeyNotification();
 
   // Check for mobile
   useEffect(() => {

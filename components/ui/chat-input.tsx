@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { useTextareaResize } from "@/hooks/use-textarea-resize";
 import { ArrowUpIcon } from "lucide-react";
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useRef } from "react";
 import { AnimeSelect, FictionSelect, XogSelect, EthSelect, ElitesSelect, NavSelect } from "./dropdown";
 import { usePathname } from 'next/navigation';
 
@@ -187,7 +187,7 @@ function ChatInputSubmit({
       <Button
         onClick={onStop}
         className={cn(
-          "shrink-0 rounded-full p-1.5 h-fit border dark:border-zinc-600",
+          "shrink-0 rounded-full p-1 md:p-1.5 h-fit border dark:border-zinc-600",
           className
         )}
         {...props}
@@ -213,9 +213,17 @@ function ChatInputSubmit({
 
   const isDisabled = !selectedCharacter || !context.value || context.value.trim().length === 0;
 
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (!isDisabled && selectedCharacter) {
+      const finalPrompt = `${selectedCharacter.systemPrompt}\n${context.value}`;
+      onSubmit?.(finalPrompt);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-between gap-2 w-full">
-      <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between gap-1 md:gap-2 w-full">
+      <div className="flex items-center gap-1 md:gap-2">
         {/* Nav dropdown for mobile */}
         <div className="md:hidden">
           <NavSelect onSelect={(path) => window.location.href = path} currentPath={pathname} />
@@ -233,26 +241,20 @@ function ChatInputSubmit({
         ) : (
           <AnimeSelect value={selectedCharacterId} onSelect={(id) => onCharacterSelect?.(id)} />
         )}
+
       </div>
 
       {/* Submit / Arrow Button */}
       <Button
         className={cn(
-          "shrink-0 rounded-full p-1.5 h-fit border dark:border-zinc-600",
+          "shrink-0 rounded-full p-1 md:p-1.5 h-fit border dark:border-zinc-600",
           className
         )}
         disabled={isDisabled}
-        onClick={(event) => {
-          event.preventDefault();
-          if (!isDisabled && selectedCharacter) {
-            const finalPrompt = `${selectedCharacter.systemPrompt}\n${context.value}`;
-            console.log("Selected system prompt:", selectedCharacter.systemPrompt);
-            onSubmit?.(finalPrompt);
-          }
-        }}
+        onClick={handleSubmit}
         {...props}
       >
-        <ArrowUpIcon />
+        <ArrowUpIcon className="h-3 w-3 md:h-4 md:w-4" />
       </Button>
     </div>
   );

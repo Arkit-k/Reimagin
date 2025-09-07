@@ -2,18 +2,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 import { toast } from 'sonner';
 import Image from "next/image";
-import { Star } from 'lucide-react';
 
 import {
   ChatMessage,
   ChatMessageAvatar,
   ChatMessageContent,
 } from "@/components/ui/chat-message";
-import { ANIME_CHARACTERS, type AnimeCharacter, ANIME_BACKGROUNDS } from "@/system-prompts/anime-prompts";
+import { ANIME_CHARACTERS, type AnimeCharacter } from "@/system-prompts/anime-prompts";
 import { useApiKeyNotification } from "@/hooks/use-api-key-notification";
 import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars";
 
@@ -28,7 +26,7 @@ export default function ChatwithKYemon() {
   const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
+  const { incrementMessageCount } = useApiKeyNotification();
 
   // Check for mobile
   useEffect(() => {
@@ -64,7 +62,8 @@ export default function ChatwithKYemon() {
   }, [selectedCharacter.id]);
 
 
-  const handleSubmit = async (prompt: string) => {
+  const handleSubmit = async (message: string) => {
+    console.log("handleSubmit called with message:", message);
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
@@ -82,7 +81,10 @@ export default function ChatwithKYemon() {
       return;
     }
 
-    setMessages((m) => [...m, { role: "user", text: prompt }]);
+    // Create user message
+    const userMessage: { role: "user" | "kyemon"; text: string } = { role: "user", text: message };
+    console.log("User message being added:", userMessage);
+    setMessages((m) => [...m, userMessage]);
     setIsThinking(true);
 
     try {
@@ -90,7 +92,7 @@ export default function ChatwithKYemon() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: prompt,
+          message: message,
           systemPrompt: selectedCharacter.systemPrompt,
           apiKey: apiKey,
         }),
@@ -183,17 +185,37 @@ export default function ChatwithKYemon() {
         }}
       >
         {messages.length === 0 && loaded && (
-          <video
-            ref={videoRef}
-            key={isMobile ? 'mobile' : 'desktop'}
-            autoPlay
-            loop
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={isMobile ? "/backgrounds/animemobile.mp4" : "/backgrounds/anime.mp4"} type="video/mp4" />
-          </video>
+          <>
+            {isMobile ? (
+              <video
+                ref={videoRef}
+                key="mobile"
+                autoPlay
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/backgrounds/animemobile.mp4" type="video/mp4" />
+              </video>
+            ) : (
+              <video
+                ref={videoRef}
+                key="desktop"
+                autoPlay
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+                onEnded={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  video.currentTime = video.duration - 0.1;
+                  video.pause();
+                }}
+              >
+                <source src="/backgrounds/mainbg.mp4" type="video/mp4" />
+              </video>
+            )}
+          </>
         )}
       </div>
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
@@ -306,21 +328,24 @@ export default function ChatwithKYemon() {
           {/* Messages area */}
           <div className="flex-1 overflow-y-auto px-2 sm:px-4 md:px-6 pt-6 pb-28">
             <div className="mx-auto w-full md:w-[600px]">
-              {messages.map((message, i) => (
-                <ChatMessage
-                  key={i}
-                  id={String(i)}
-                  type={message.role === "user" ? "outgoing" : "incoming"}
-                  variant="bubble"
-                >
-                  {message.role !== "user" ? (
-                    <ChatMessageAvatar imageSrc={selectedCharacter.image} name={selectedCharacter.name} />
-                  ) : (
-                    <ChatMessageAvatar />
-                  )}
-                  <ChatMessageContent content={message.text} />
-                </ChatMessage>
-              ))}
+              {messages.map((message, i) => {
+                console.log(`Rendering message ${i}:`, message);
+                return (
+                  <ChatMessage
+                    key={i}
+                    id={String(i)}
+                    type={message.role === "user" ? "outgoing" : "incoming"}
+                    variant="bubble"
+                  >
+                    {message.role !== "user" ? (
+                      <ChatMessageAvatar imageSrc={selectedCharacter.image} name={selectedCharacter.name} />
+                    ) : (
+                      <ChatMessageAvatar />
+                    )}
+                    <ChatMessageContent content={message.text} />
+                  </ChatMessage>
+                );
+              })}
               {isThinking && (
                 <ChatMessage
                   key="thinking"

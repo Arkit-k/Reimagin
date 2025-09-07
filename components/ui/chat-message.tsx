@@ -178,30 +178,30 @@ const chatMessageContentVariants = cva("flex flex-col gap-2", {
 });
 
 interface ChatMessageContentProps extends React.HTMLAttributes<HTMLDivElement> {
-	id?: string;
-	content: string;
+  id?: string;
+  content: string;
 }
 
 const ChatMessageContent = React.forwardRef<
-	HTMLDivElement,
-	ChatMessageContentProps
+  HTMLDivElement,
+  ChatMessageContentProps
 >(({ className, content, id: idProp, children, ...props }, ref) => {
-	const context = useChatMessage();
+  const context = useChatMessage();
 
-	const variant = context?.variant ?? "default";
-	const type = context?.type ?? "incoming";
-	const id = idProp ?? context?.id ?? "";
+  const variant = context?.variant ?? "default";
+  const type = context?.type ?? "incoming";
+  const id = idProp ?? context?.id ?? "";
 
-	return (
-		<div
-			ref={ref}
-			className={cn(chatMessageContentVariants({ variant, type, className }))}
-			{...props}
-		>
-			{content.length > 0 && <MarkdownContent id={id} content={content} />}
-			{children}
-		</div>
-	);
+  return (
+    <div
+      ref={ref}
+      className={cn(chatMessageContentVariants({ variant, type, className }))}
+      {...props}
+    >
+      {content.length > 0 && <MarkdownContent id={id} content={content} />}
+      {children}
+    </div>
+  );
 });
 ChatMessageContent.displayName = "ChatMessageContent";
 

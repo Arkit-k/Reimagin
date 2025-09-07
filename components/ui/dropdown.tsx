@@ -39,7 +39,7 @@ export function AnimeSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[120px] md:max-w-[180px] md:w-[180px] flex items-center gap-1 md:gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -94,15 +94,15 @@ export function FictionSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[120px] md:max-w-[180px] md:w-[180px] flex items-center gap-1 md:gap-2">
         {selectedChar ? (
           <>
             <Image
               src={selectedChar.image}
               alt={selectedChar.name}
-              width={32}
-              height={32}
-              className="rounded-full"
+              width={24}
+              height={24}
+              className="rounded-full md:w-8 md:h-8"
             />
             <span>{selectedChar.name}</span>
           </>
@@ -149,15 +149,15 @@ export function XogSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[120px] md:max-w-[180px] md:w-[180px] flex items-center gap-1 md:gap-2">
         {selectedChar ? (
           <>
             <Image
               src={selectedChar.image}
               alt={selectedChar.name}
-              width={32}
-              height={32}
-              className="rounded-full"
+              width={24}
+              height={24}
+              className="rounded-full md:w-8 md:h-8"
             />
             <span>{selectedChar.name}</span>
           </>
@@ -204,15 +204,15 @@ export function EthSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[220px] md:w-[220px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[120px] md:max-w-[220px] md:w-[220px] flex items-center gap-1 md:gap-2">
         {selectedChar ? (
           <>
             <Image
               src={selectedChar.image}
               alt={selectedChar.name}
-              width={32}
-              height={32}
-              className="rounded-full"
+              width={24}
+              height={24}
+              className="rounded-full md:w-8 md:h-8"
             />
             <span>{selectedChar.name.length > 10 ? selectedChar.name.substring(0, 10) + '...' : selectedChar.name}</span>
           </>
@@ -258,7 +258,7 @@ export function ElitesSelect({ onSelect, value }: Props) {
 
   return (
     <Select onValueChange={handleChange} value={selectedCharacter ?? undefined}>
-      <SelectTrigger className="w-full max-w-[180px] md:w-[180px] flex items-center gap-2">
+      <SelectTrigger className="w-full max-w-[120px] md:max-w-[180px] md:w-[180px] flex items-center gap-1 md:gap-2">
         {selectedChar ? (
           <>
             <Image
@@ -315,7 +315,7 @@ export function NavSelect({ onSelect, currentPath }: NavProps) {
 
   return (
     <Select onValueChange={onSelect}>
-      <SelectTrigger className="w-full max-w-[120px] md:w-[120px] flex  items-center gap-2 bg-transparent md:bg-stone-800">
+      <SelectTrigger className="w-full max-w-[100px] md:max-w-[120px] md:w-[120px] flex items-center gap-1 md:gap-2 bg-transparent md:bg-stone-800">
         <span className="text-sm text-white">{currentLabel}</span>
       </SelectTrigger>
 

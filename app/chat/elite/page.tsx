@@ -2,11 +2,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { ChatInputDemo } from "@/components/input-field";
 import { toast } from 'sonner';
 import Image from "next/image";
-import { Star } from 'lucide-react';
 
 import {
   ChatMessage,
@@ -28,7 +26,7 @@ export default function ChatwithKYemon() {
   const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { incrementMessageCount, hasApiKey } = useApiKeyNotification();
+  const { incrementMessageCount } = useApiKeyNotification();
 
   // Check for mobile
   useEffect(() => {
@@ -187,10 +185,15 @@ export default function ChatwithKYemon() {
             ref={videoRef}
             key={isMobile ? 'mobile' : 'desktop'}
             autoPlay
-            loop
+            loop={isMobile}
             playsInline
             preload="auto"
             className="absolute inset-0 w-full h-full object-cover"
+            onEnded={isMobile ? undefined : (e) => {
+              const video = e.target as HTMLVideoElement;
+              video.currentTime = video.duration - 0.1;
+              video.pause();
+            }}
           >
             <source src={isMobile ? Elites_BACKGROUNDS.mobile : Elites_BACKGROUNDS.desktop} type="video/mp4" />
           </video>

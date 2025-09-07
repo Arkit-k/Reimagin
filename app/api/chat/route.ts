@@ -1,4 +1,4 @@
-import { createGoogleGenerativeAI, google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText } from "ai";
 import { NextRequest } from "next/server";
 
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Security: Sanitize inputs
-    const sanitizedMessage = typeof message === 'string' ? sanitizeInput(message) : message;
+    const sanitizedMessage = sanitizeInput(message);
     const sanitizedSystemPrompt = sanitizeInput(systemPrompt);
 
     // Security: Enhanced rate limiting with IP and API key combination
@@ -141,18 +141,8 @@ export async function POST(req: NextRequest) {
       console.warn(`High usage detected from IP: ${ip}, mode: ${isDemoMode ? 'demo' : 'authenticated'}`);
     }
 
-    // Accept both string and array, always convert to Gemini format
-    let geminiMessages;
-    if (typeof sanitizedMessage === "string") {
-      geminiMessages = [{ role: "user", content: sanitizedMessage }];
-    } else if (Array.isArray(sanitizedMessage)) {
-      geminiMessages = sanitizedMessage.map((m) => ({
-        role: m.role || "user",
-        content: sanitizeInput(m.text || m.content || ""),
-      }));
-    } else {
-      return new Response("Invalid message format", { status: 400 });
-    }
+    // Prepare Gemini messages
+    const geminiMessages = [{ role: "user" as const, content: sanitizedMessage }];
 
     // Security: Content filtering for harmful content
     const harmfulPatterns = [
