@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
     const allowedOrigins = [
       'https://reimagin.xyz',
       'https://www.reimagin.xyz',
+      'https://reimagine-7fzc.vercel.app',
       'https://reimagine-mruj.vercel.app'
     ];
 
