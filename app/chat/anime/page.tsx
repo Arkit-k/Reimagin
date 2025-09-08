@@ -63,12 +63,21 @@ export default function ChatwithKYemon() {
 
   // Try to play video
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const playVideo = () => {
       if (videoRef.current && messages.length === 0 && loaded) {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch((error) => {
+          console.log('Video play failed:', error);
+        });
       }
-    }, 100);
-    return () => clearTimeout(timer);
+    };
+
+    if (loaded && messages.length === 0) {
+      // Try immediately
+      playVideo();
+      // Also try after a short delay in case video isn't ready
+      const timer = setTimeout(playVideo, 100);
+      return () => clearTimeout(timer);
+    }
   }, [loaded, messages.length]);
 
 
@@ -198,12 +207,25 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="mobile"
-                autoPlay
                 loop
                 playsInline
                 muted={true}
                 preload="auto"
                 crossOrigin="anonymous"
+                onCanPlay={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on canPlay:', error);
+                    });
+                  }
+                }}
+                onLoadedData={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on loadedData:', error);
+                    });
+                  }
+                }}
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/backgrounds/animemobile.mp4" type="video/mp4" />
@@ -212,12 +234,25 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="desktop"
-                autoPlay
                 loop
                 playsInline
                 muted={true}
                 preload="auto"
                 crossOrigin="anonymous"
+                onCanPlay={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on canPlay:', error);
+                    });
+                  }
+                }}
+                onLoadedData={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on loadedData:', error);
+                    });
+                  }
+                }}
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/backgrounds/mainbg.mp4" type="video/mp4" />
