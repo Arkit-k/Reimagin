@@ -204,7 +204,6 @@ export default function ChatwithKYemon() {
                 key="desktop"
                 autoPlay
                 playsInline
-                muted
                 preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
                 onEnded={(e) => {
