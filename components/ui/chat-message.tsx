@@ -180,13 +180,12 @@ const chatMessageContentVariants = cva("flex flex-col gap-2", {
 interface ChatMessageContentProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
   content: string;
-  images?: string[];
 }
 
 const ChatMessageContent = React.forwardRef<
   HTMLDivElement,
   ChatMessageContentProps
->(({ className, content, id: idProp, images, children, ...props }, ref) => {
+>(({ className, content, id: idProp, children, ...props }, ref) => {
   const context = useChatMessage();
 
   const variant = context?.variant ?? "default";
@@ -199,20 +198,6 @@ const ChatMessageContent = React.forwardRef<
       className={cn(chatMessageContentVariants({ variant, type, className }))}
       {...props}
     >
-      {images && images.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-2">
-          {images.map((image, index) => (
-            <Image
-              key={index}
-              src={image}
-              alt={`Uploaded image ${index + 1}`}
-              width={200}
-              height={200}
-              className="rounded-lg max-w-[200px] max-h-[200px] object-cover"
-            />
-          ))}
-        </div>
-      )}
       {content.length > 0 && <MarkdownContent id={id} content={content} />}
       {children}
     </div>

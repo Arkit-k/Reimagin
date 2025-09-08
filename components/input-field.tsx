@@ -9,7 +9,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 type ChatInputDemoProps = {
-  onSubmit: (prompt: string, images?: string[]) => void | Promise<void>;
+  onSubmit: (prompt: string) => void | Promise<void>;
   placeholder?: string;
   isCentered?: boolean;
   selectedCharacterId?: string | null;
@@ -20,15 +20,13 @@ type ChatInputDemoProps = {
 export function ChatInputDemo({ onSubmit, placeholder, isCentered, selectedCharacterId: propSelectedCharacterId, onCharacterSelect, selectType = "anime" }: ChatInputDemoProps) {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
 
   const handleSubmit = async () => {
-    if (!value.trim() && images.length === 0) return;
+    if (!value.trim()) return;
     setIsLoading(true);
     try {
-      await onSubmit(value, images);
+      await onSubmit(value);
       setValue("");
-      setImages([]);
     } catch {
       toast("Failed to send message");
     } finally {
@@ -55,8 +53,6 @@ export function ChatInputDemo({ onSubmit, placeholder, isCentered, selectedChara
           selectedCharacterId={propSelectedCharacterId}
           onCharacterSelect={onCharacterSelect}
           selectType={selectType}
-          images={images}
-          onImagesChange={setImages}
         >
           <ChatInputTextArea
             placeholder={placeholder ?? "Type a message..."}

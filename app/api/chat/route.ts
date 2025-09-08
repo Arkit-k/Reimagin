@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       return new Response("Request too large", { status: 413 });
     }
 
-    const { message, systemPrompt, apiKey, images } = await req.json();
+    const { message, systemPrompt, apiKey } = await req.json();
 
     // Security: Check server API key
     const serverApiKey = req.headers.get('x-api-key');
@@ -138,19 +138,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Prepare Gemini messages
-    let content: string | Array<{ type: "text"; text: string } | { type: "image"; image: string }> = sanitizedMessage;
-    if (images && Array.isArray(images) && images.length > 0) {
-      content = [{ type: "text" as const, text: sanitizedMessage }];
-      for (const image of images) {
-        // Remove data:image/...;base64, prefix
-        const base64Data = image.split(',')[1];
-        content.push({
-          type: "image" as const,
-          image: base64Data
-        });
-      }
-    }
-    const geminiMessages = [{ role: "user" as const, content }];
+    const geminiMessages = [{ role: "user" as const, content: sanitizedMessage }];
 
     // Security: Content filtering for harmful content
     const harmfulPatterns = [

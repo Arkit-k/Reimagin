@@ -18,7 +18,7 @@ import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars"
 
 export default function ChatwithKYemon() {
   const router = useRouter();
-  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string; images?: string[] }[]>([]);
+  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<ElitesCharacter>(Elites_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
@@ -62,7 +62,7 @@ export default function ChatwithKYemon() {
   }, [selectedCharacter.id]);
 
 
-  const handleSubmit = async (prompt: string, images?: string[]) => {
+  const handleSubmit = async (prompt: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
@@ -80,7 +80,7 @@ export default function ChatwithKYemon() {
       return;
     }
 
-    setMessages((m) => [...m, { role: "user", text: prompt, images }]);
+    setMessages((m) => [...m, { role: "user", text: prompt }]);
     setIsThinking(true);
 
     try {
@@ -91,7 +91,6 @@ export default function ChatwithKYemon() {
           message: prompt,
           systemPrompt: selectedCharacter.systemPrompt,
           apiKey: apiKey,
-          images: images,
         }),
       });
 
@@ -185,13 +184,13 @@ export default function ChatwithKYemon() {
           <video
             ref={videoRef}
             key={isMobile ? 'mobile' : 'desktop'}
-            autoPlay
             loop
             playsInline
             muted={false}
             preload="auto"
             crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
+            onCanPlay={() => { if (videoRef.current) videoRef.current.play().catch(() => {}); }}
           >
             <source src={isMobile ? Elites_BACKGROUNDS.mobile : Elites_BACKGROUNDS.desktop} type="video/mp4" />
           </video>
@@ -313,7 +312,7 @@ export default function ChatwithKYemon() {
                  ) : (
                    <ChatMessageAvatar />
                  )}
-                 <ChatMessageContent content={message.text} images={message.images} />
+                 <ChatMessageContent content={message.text} />
                </ChatMessage>
              ))}
              {isThinking && (
