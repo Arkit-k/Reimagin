@@ -204,7 +204,7 @@ export default function ChatwithKYemon() {
             key={isMobile ? 'mobile' : 'desktop'}
             loop
             playsInline
-            muted={!isMobile}
+            muted={false}
             preload="auto"
             crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
