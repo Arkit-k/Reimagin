@@ -62,7 +62,7 @@ export default function Home() {
     }
   };
 
-  if (showLoading) {
+  if (showLoading && !isMobile) {
     return (
       <div className="fixed inset-0 z-50 bg-black">
         <video
@@ -77,7 +77,7 @@ export default function Home() {
         </video>
         <div className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-1000 px-4 ${showWelcomeText ? 'opacity-100' : 'opacity-0'}`}>
           <div className="text-center max-w-sm mx-auto">
-            <h1 className="text-white text-3xl sm:text-4xl md:text-6xl font-bold mb-2">
+            <h1 className={`${isMobile ? 'text-white' : 'text-stone-900'} text-3xl sm:text-4xl md:text-6xl font-bold mb-2`}>
               Welcome to
             </h1>
             <div className="flex items-center justify-center gap-2 sm:gap-3">

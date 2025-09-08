@@ -25,14 +25,14 @@ export default function HeroSection() {
     const videoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 1024px)')
+        const mediaQuery = window.matchMedia('(max-width: 1024px)');
         const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
-            setIsMobile(e.matches)
-        }
-        checkMobile(mediaQuery)
-        mediaQuery.addEventListener('change', checkMobile)
-        return () => mediaQuery.removeEventListener('change', checkMobile)
-    }, [])
+            setIsMobile(e.matches);
+        };
+        checkMobile(mediaQuery);
+        mediaQuery.addEventListener('change', checkMobile);
+        return () => mediaQuery.removeEventListener('change', checkMobile);
+    }, []);
 
     return (
         <>
@@ -93,7 +93,7 @@ export default function HeroSection() {
                 </nav>
             </header>
             <main className="overflow-hidden">
-                <section className="relative flex flex-col justify-end" style={{ minHeight: '100vh' }}>
+                <section className="relative flex flex-col justify-end hero-bg" style={{ minHeight: '100vh' }}>
                     <video
                         ref={videoRef}
                         autoPlay
@@ -107,7 +107,7 @@ export default function HeroSection() {
                             }
                         }}
                     >
-                        <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
+                        <source src={isMobile ? "/backgrounds/heromobile.mp4" : "/backgrounds/herobg.mp4"} type="video/mp4" />
                     </video>
                     <div className="relative pb-32 lg:pb-36 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
