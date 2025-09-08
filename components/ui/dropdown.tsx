@@ -49,7 +49,7 @@ export function AnimeSelect({ onSelect, value }: Props) {
               height={32}
               className="rounded-full"
             />
-            <span>{selectedChar.name}</span>
+            <span>{selectedChar.name.length > 7 ? selectedChar.name.substring(0, 7) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select an anime character" />
@@ -104,7 +104,7 @@ export function FictionSelect({ onSelect, value }: Props) {
               height={24}
               className="rounded-full md:w-8 md:h-8"
             />
-            <span>{selectedChar.name}</span>
+            <span>{selectedChar.name.length > 7 ? selectedChar.name.substring(0, 7) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select a fiction character" />
@@ -159,7 +159,7 @@ export function XogSelect({ onSelect, value }: Props) {
               height={24}
               className="rounded-full md:w-8 md:h-8"
             />
-            <span>{selectedChar.name}</span>
+            <span>{selectedChar.name.length > 7 ? selectedChar.name.substring(0, 7) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select an X'og character" />
@@ -214,7 +214,7 @@ export function EthSelect({ onSelect, value }: Props) {
               height={24}
               className="rounded-full md:w-8 md:h-8"
             />
-            <span>{selectedChar.name.length > 10 ? selectedChar.name.substring(0, 10) + '...' : selectedChar.name}</span>
+            <span>{selectedChar.name.length > 7 ? selectedChar.name.substring(0, 7) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select an Eternal's character" />
@@ -268,7 +268,7 @@ export function ElitesSelect({ onSelect, value }: Props) {
               height={32}
               className="rounded-full"
             />
-            <span>{selectedChar.name}</span>
+            <span>{selectedChar.name.length > 7 ? selectedChar.name.substring(0, 7) + '...' : selectedChar.name}</span>
           </>
         ) : (
           <SelectValue placeholder="Select an elite character" />
