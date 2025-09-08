@@ -236,6 +236,7 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="desktop"
+                autoPlay
                 loop
                 playsInline
                 muted={true}

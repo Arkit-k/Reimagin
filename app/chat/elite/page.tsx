@@ -200,18 +200,65 @@ export default function ChatwithKYemon() {
         }}
       >
         {messages.length === 0 && loaded && (
-          <video
-            ref={videoRef}
-            key={isMobile ? 'mobile' : 'desktop'}
-            loop
-            playsInline
-            muted={!isMobile}
-            preload="auto"
-            crossOrigin="anonymous"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src={isMobile ? Elites_BACKGROUNDS.mobile : Elites_BACKGROUNDS.desktop} type="video/mp4" />
-          </video>
+          <>
+            {isMobile ? (
+              <video
+                ref={videoRef}
+                key="mobile"
+                autoPlay
+                loop
+                playsInline
+                muted={false}
+                preload="auto"
+                crossOrigin="anonymous"
+                onCanPlay={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on canPlay:', error);
+                    });
+                  }
+                }}
+                onLoadedData={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on loadedData:', error);
+                    });
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src={Elites_BACKGROUNDS.mobile} type="video/mp4" />
+              </video>
+            ) : (
+              <video
+                ref={videoRef}
+                key="desktop"
+                autoPlay
+                loop
+                playsInline
+                muted={true}
+                preload="auto"
+                crossOrigin="anonymous"
+                onCanPlay={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on canPlay:', error);
+                    });
+                  }
+                }}
+                onLoadedData={() => {
+                  if (videoRef.current && messages.length === 0 && loaded) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed on loadedData:', error);
+                    });
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src={Elites_BACKGROUNDS.desktop} type="video/mp4" />
+              </video>
+            )}
+          </>
         )}
       </div>
       <header className="w-full py-1 md:py-2 px-2 md:px-4 border-b border-gray-700/50 bg-black/20 backdrop-blur-sm">
