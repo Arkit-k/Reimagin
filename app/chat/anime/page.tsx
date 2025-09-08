@@ -73,7 +73,6 @@ export default function ChatwithKYemon() {
 
 
   const handleSubmit = async (message: string) => {
-    console.log("handleSubmit called with message:", message);
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
@@ -93,7 +92,6 @@ export default function ChatwithKYemon() {
 
     // Create user message
     const userMessage: { role: "user" | "kyemon"; text: string } = { role: "user", text: message };
-    console.log("User message being added:", userMessage);
     setMessages((m) => [...m, userMessage]);
     setIsThinking(true);
 
@@ -339,7 +337,6 @@ export default function ChatwithKYemon() {
           <div className="flex-1 overflow-y-auto px-2 sm:px-4 md:px-6 pt-6 pb-28">
             <div className="mx-auto w-full md:w-[600px]">
               {messages.map((message, i) => {
-                console.log(`Rendering message ${i}:`, message);
                 return (
                   <ChatMessage
                     key={i}

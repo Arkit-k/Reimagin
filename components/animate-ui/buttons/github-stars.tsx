@@ -84,7 +84,7 @@ function GitHubStarsButton({
           setStars(data.stargazers_count);
         }
       })
-      .catch(console.error)
+      .catch(() => {})
       .finally(() => setIsLoading(false));
   }, [username, repo]);
 

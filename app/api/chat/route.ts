@@ -101,7 +101,6 @@ export async function POST(req: NextRequest) {
     if (apiKey && typeof apiKey === 'string' && isValidApiKey(apiKey)) {
       // User provided a valid API key - use it
       finalApiKey = apiKey;
-      console.log('Using user-provided API key');
     } else {
       // No valid user key provided - use demo key
       finalApiKey = process.env.GEMINI_DEMO_API_KEY || '';
@@ -110,7 +109,6 @@ export async function POST(req: NextRequest) {
       if (!finalApiKey) {
         return new Response("Demo API key not configured. Please set your own Google Gemini API key.", { status: 401 });
       }
-      console.log('Using demo API key (no valid user key provided)');
     }
 
     // Security: Sanitize inputs
