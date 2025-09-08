@@ -23,6 +23,7 @@ export default function HeroSection() {
     const [menuState, setMenuState] = React.useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
+    const [mobileChecked, setMobileChecked] = useState(false)
     const videoRef = useRef<HTMLVideoElement>(null)
     const loadingVideoRef = useRef<HTMLVideoElement>(null)
 
@@ -31,6 +32,7 @@ export default function HeroSection() {
         const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
             setIsMobile(e.matches);
             setIsLoading(e.matches); // Loading only on mobile
+            setMobileChecked(true);
         };
         checkMobile(mediaQuery);
         mediaQuery.addEventListener('change', checkMobile);
@@ -97,7 +99,7 @@ export default function HeroSection() {
             </header>
             <main className="overflow-hidden">
                 <section className="relative flex flex-col justify-end" style={{ minHeight: '100vh' }}>
-                    {isLoading && (
+                    {mobileChecked && isLoading && (
                         <video
                             ref={loadingVideoRef}
                             autoPlay
@@ -106,15 +108,25 @@ export default function HeroSection() {
                             className="absolute inset-0 w-full h-full object-cover z-10"
                             onEnded={() => setIsLoading(false)}
                             onTimeUpdate={() => {
-                                if (loadingVideoRef.current && loadingVideoRef.current.currentTime >= loadingVideoRef.current.duration - 0.1) {
+                                if (loadingVideoRef.current && loadingVideoRef.current.duration && loadingVideoRef.current.currentTime >= loadingVideoRef.current.duration - 0.1) {
                                     setIsLoading(false);
                                 }
+                            }}
+                            onLoadedData={() => {
+                                // Ensure video starts playing
+                                if (loadingVideoRef.current) {
+                                    loadingVideoRef.current.play().catch(() => {});
+                                }
+                            }}
+                            onError={() => {
+                                // If loading video fails, skip to main video
+                                setIsLoading(false);
                             }}
                         >
                             <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
                         </video>
                     )}
-                    {!isLoading && (
+                    {mobileChecked && !isLoading && (
                         <video
                             ref={videoRef}
                             autoPlay
