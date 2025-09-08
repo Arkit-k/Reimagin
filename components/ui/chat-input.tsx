@@ -9,7 +9,7 @@ import { Eternals_CHARACTERS } from "@/system-prompts/eternals-prompts";
 import { Elites_CHARACTERS } from "@/system-prompts/elites-prompts";
 import { cn } from "@/lib/utils";
 import { useTextareaResize } from "@/hooks/use-textarea-resize";
-import { ArrowUpIcon } from "lucide-react";
+import { ArrowUpIcon, PaperclipIcon } from "lucide-react";
 import type React from "react";
 import { createContext, useContext, useState, useRef } from "react";
 import { AnimeSelect, FictionSelect, XogSelect, EthSelect, ElitesSelect, NavSelect } from "./dropdown";
@@ -18,7 +18,7 @@ import { usePathname } from 'next/navigation';
 interface ChatInputContextValue {
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
-  onSubmit?: (prompt: string) => void;
+  onSubmit?: (prompt: string, images?: string[]) => void;
   loading?: boolean;
   onStop?: () => void;
   variant?: "default" | "unstyled";
@@ -26,6 +26,8 @@ interface ChatInputContextValue {
   selectedCharacterId?: string | null;
   onCharacterSelect?: (id: string) => void;
   selectType?: "anime" | "fiction" | "xog" | "eternals" | "elites";
+  images?: string[];
+  onImagesChange?: (images: string[]) => void;
 }
 
 const ChatInputContext = createContext<ChatInputContextValue>({});
@@ -36,6 +38,8 @@ interface ChatInputProps extends Omit<ChatInputContextValue, "variant"> {
   variant?: "default" | "unstyled";
   rows?: number;
   selectType?: "anime" | "fiction" | "xog" | "eternals" | "elites";
+  images?: string[];
+  onImagesChange?: (images: string[]) => void;
 }
 
 function ChatInput({
@@ -51,6 +55,8 @@ function ChatInput({
   selectedCharacterId,
   onCharacterSelect,
   selectType = "anime",
+  images,
+  onImagesChange,
 }: ChatInputProps) {
   const contextValue: ChatInputContextValue = {
     value,
@@ -63,6 +69,8 @@ function ChatInput({
     selectedCharacterId,
     onCharacterSelect,
     selectType,
+    images,
+    onImagesChange,
   };
 
   return (
@@ -160,6 +168,8 @@ function ChatInputSubmit({
   const selectedCharacterId = context.selectedCharacterId;
   const onCharacterSelect = context.onCharacterSelect;
   const selectType = context.selectType ?? "anime";
+  const images = context.images ?? [];
+  const onImagesChange = context.onImagesChange;
 
   const getCharacters = () => {
     switch (selectType) {
@@ -181,6 +191,28 @@ function ChatInputSubmit({
     (c) => c.id === selectedCharacterId
   );
   const pathname = usePathname();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files) return;
+    const newImages: string[] = [];
+    for (const file of Array.from(files)) {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          if (result) {
+            newImages.push(result);
+            if (newImages.length === files.length) {
+              onImagesChange?.([...images, ...newImages]);
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
 
   if (loading && onStop) {
     return (
@@ -211,13 +243,13 @@ function ChatInputSubmit({
     );
   }
 
-  const isDisabled = !selectedCharacter || !context.value || context.value.trim().length === 0;
+  const isDisabled = !selectedCharacter || (!context.value || context.value.trim().length === 0) && images.length === 0;
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (!isDisabled && selectedCharacter) {
       const finalPrompt = `${selectedCharacter.systemPrompt}\n${context.value}`;
-      onSubmit?.(finalPrompt);
+      onSubmit?.(finalPrompt, images);
     }
   };
 
@@ -243,6 +275,29 @@ function ChatInputSubmit({
         )}
 
       </div>
+
+      {/* File Upload Button */}
+      <Button
+        type="button"
+        onClick={() => fileInputRef.current?.click()}
+        className={cn(
+          "shrink-0 rounded-full p-1 md:p-1.5 h-fit border dark:border-zinc-600",
+          className
+        )}
+        {...props}
+      >
+        <PaperclipIcon className="h-3 w-3 md:h-4 md:w-4" />
+      </Button>
+
+      {/* Hidden File Input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleFileSelect}
+        className="hidden"
+      />
 
       {/* Submit / Arrow Button */}
       <Button

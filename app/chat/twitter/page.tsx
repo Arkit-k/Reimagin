@@ -188,6 +188,7 @@ export default function ChatwithKYemon() {
             playsInline
             muted={false}
             preload="auto"
+            crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={isMobile ? "/backgrounds/twittermobile.mp4" : "/backgrounds/twitterbg.mp4"} type="video/mp4" />

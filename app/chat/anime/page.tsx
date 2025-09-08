@@ -18,7 +18,7 @@ import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars"
 
 export default function ChatwithKYemon() {
   const router = useRouter();
-  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string; images?: string[] }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<AnimeCharacter>(ANIME_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
@@ -61,8 +61,15 @@ export default function ChatwithKYemon() {
     setMessages([]);
   }, [selectedCharacter.id]);
 
+  // Try to play video
+  useEffect(() => {
+    if (videoRef.current && messages.length === 0 && loaded) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [loaded, messages.length]);
 
-  const handleSubmit = async (message: string) => {
+
+  const handleSubmit = async (message: string, images?: string[]) => {
     console.log("handleSubmit called with message:", message);
     if (!selectedCharacter) return; // ensure a character is selected
 
@@ -82,7 +89,7 @@ export default function ChatwithKYemon() {
     }
 
     // Create user message
-    const userMessage: { role: "user" | "kyemon"; text: string } = { role: "user", text: message };
+    const userMessage: { role: "user" | "kyemon"; text: string; images?: string[] } = { role: "user", text: message, images };
     console.log("User message being added:", userMessage);
     setMessages((m) => [...m, userMessage]);
     setIsThinking(true);
@@ -95,6 +102,7 @@ export default function ChatwithKYemon() {
           message: message,
           systemPrompt: selectedCharacter.systemPrompt,
           apiKey: apiKey,
+          images: images,
         }),
       });
 
@@ -194,6 +202,7 @@ export default function ChatwithKYemon() {
                 loop
                 playsInline
                 preload="auto"
+                crossOrigin="anonymous"
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/backgrounds/animemobile.mp4" type="video/mp4" />
@@ -206,6 +215,7 @@ export default function ChatwithKYemon() {
                 loop
                 playsInline
                 preload="auto"
+                crossOrigin="anonymous"
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/backgrounds/mainbg.mp4" type="video/mp4" />
@@ -338,7 +348,7 @@ export default function ChatwithKYemon() {
                     ) : (
                       <ChatMessageAvatar />
                     )}
-                    <ChatMessageContent content={message.text} />
+                    <ChatMessageContent content={message.text} images={message.images} />
                   </ChatMessage>
                 );
               })}

@@ -18,7 +18,7 @@ import { GitHubStarsButton } from "@/components/animate-ui/buttons/github-stars"
 
 export default function ChatwithKYemon() {
   const router = useRouter();
-  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: "user" | "kyemon"; text: string; images?: string[] }[]>([]);
   const [rateLimitReached, setRateLimitReached] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<ElitesCharacter>(Elites_CHARACTERS[0]);
   const [isMobile, setIsMobile] = useState(false);
@@ -62,7 +62,7 @@ export default function ChatwithKYemon() {
   }, [selectedCharacter.id]);
 
 
-  const handleSubmit = async (prompt: string) => {
+  const handleSubmit = async (prompt: string, images?: string[]) => {
     if (!selectedCharacter) return; // ensure a character is selected
 
     const apiKey = localStorage.getItem('geminiApiKey');
@@ -80,7 +80,7 @@ export default function ChatwithKYemon() {
       return;
     }
 
-    setMessages((m) => [...m, { role: "user", text: prompt }]);
+    setMessages((m) => [...m, { role: "user", text: prompt, images }]);
     setIsThinking(true);
 
     try {
@@ -91,6 +91,7 @@ export default function ChatwithKYemon() {
           message: prompt,
           systemPrompt: selectedCharacter.systemPrompt,
           apiKey: apiKey,
+          images: images,
         }),
       });
 
@@ -189,6 +190,7 @@ export default function ChatwithKYemon() {
             playsInline
             muted={false}
             preload="auto"
+            crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={isMobile ? Elites_BACKGROUNDS.mobile : Elites_BACKGROUNDS.desktop} type="video/mp4" />
@@ -311,7 +313,7 @@ export default function ChatwithKYemon() {
                  ) : (
                    <ChatMessageAvatar />
                  )}
-                 <ChatMessageContent content={message.text} />
+                 <ChatMessageContent content={message.text} images={message.images} />
                </ChatMessage>
              ))}
              {isThinking && (
