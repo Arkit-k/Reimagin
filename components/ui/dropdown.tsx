@@ -56,12 +56,11 @@ export function AnimeSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top" className="
-      bg-transparent text-white">
+      <SelectContent side="top" className="bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>Anime Characters</SelectLabel>
+          <SelectLabel className="text-white">Anime Characters</SelectLabel>
           {ANIME_CHARACTERS.map((char) => (
-            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               <Image
                 src={char.image}
                 alt={char.name}
@@ -111,12 +110,11 @@ export function FictionSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top"  className="
-      bg-transparent text-white">
+      <SelectContent side="top" className="bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>Fiction Characters</SelectLabel>
+          <SelectLabel className="text-white">Fiction Characters</SelectLabel>
           {FICTION_CHARACTERS.map((char) => (
-            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               <Image
                 src={char.image}
                 alt={char.name}
@@ -166,12 +164,11 @@ export function XogSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top"  className="
-      bg-transparent text-white">
+      <SelectContent side="top" className="bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>X og Characters</SelectLabel>
+          <SelectLabel className="text-white">X og Characters</SelectLabel>
           {XOG_CHARACTERS.map((char) => (
-            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               <Image
                 src={char.image}
                 alt={char.name}
@@ -221,11 +218,11 @@ export function EthSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top"  className="w-[240px] bg-transparent text-white">
+      <SelectContent side="top" className="w-[240px] bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>Eternal Characters</SelectLabel>
+          <SelectLabel className="text-white">Eternal Characters</SelectLabel>
           {Eternals_CHARACTERS.map((char) => (
-            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               <Image
                 src={char.image}
                 alt={char.name}
@@ -275,12 +272,11 @@ export function ElitesSelect({ onSelect, value }: Props) {
         )}
       </SelectTrigger>
 
-      <SelectContent side="top" className="
-      bg-transparent text-white">
+      <SelectContent side="top" className="bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>Elite Characters</SelectLabel>
+          <SelectLabel className="text-white">Elite Characters</SelectLabel>
           {Elites_CHARACTERS.map((char) => (
-            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2">
+            <SelectItem key={char.id} value={char.id} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               <Image
                 src={char.image}
                 alt={char.name}
@@ -319,11 +315,11 @@ export function NavSelect({ onSelect, currentPath }: NavProps) {
         <span className="text-sm text-white">{currentLabel}</span>
       </SelectTrigger>
 
-      <SelectContent side="top" className="bg-transparent text-white">
+      <SelectContent side="top" className="bg-black/80 backdrop-blur-sm text-white border border-white/20">
         <SelectGroup>
-          <SelectLabel>Navigate to</SelectLabel>
+          <SelectLabel className="text-white">Navigate to</SelectLabel>
           {navOptions.map((opt) => (
-            <SelectItem key={opt.path} value={opt.path} className="flex items-center gap-2">
+            <SelectItem key={opt.path} value={opt.path} className="flex items-center gap-2 bg-black/60 hover:bg-black/80">
               {opt.label}
             </SelectItem>
           ))}

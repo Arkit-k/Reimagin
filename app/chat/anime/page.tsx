@@ -63,9 +63,12 @@ export default function ChatwithKYemon() {
 
   // Try to play video
   useEffect(() => {
-    if (videoRef.current && messages.length === 0 && loaded) {
-      videoRef.current.play().catch(() => {});
-    }
+    const timer = setTimeout(() => {
+      if (videoRef.current && messages.length === 0 && loaded) {
+        videoRef.current.play().catch(() => {});
+      }
+    }, 100);
+    return () => clearTimeout(timer);
   }, [loaded, messages.length]);
 
 
@@ -197,13 +200,13 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="mobile"
+                autoPlay
                 loop
                 playsInline
                 muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 className="absolute inset-0 w-full h-full object-cover"
-                onCanPlay={() => { if (videoRef.current) videoRef.current.play().catch(() => {}); }}
               >
                 <source src="/backgrounds/animemobile.mp4" type="video/mp4" />
               </video>
@@ -211,13 +214,13 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="desktop"
+                autoPlay
                 loop
                 playsInline
                 muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 className="absolute inset-0 w-full h-full object-cover"
-                onCanPlay={() => { if (videoRef.current) videoRef.current.play().catch(() => {}); }}
               >
                 <source src="/backgrounds/mainbg.mp4" type="video/mp4" />
               </video>

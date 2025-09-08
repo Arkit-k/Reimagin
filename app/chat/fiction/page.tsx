@@ -61,6 +61,16 @@ export default function ChatwithKYemon() {
     setMessages([]);
   }, [selectedCharacter.id]);
 
+  // Try to play video
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (videoRef.current && messages.length === 0 && loaded) {
+        videoRef.current.play().catch(() => {});
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [loaded, messages.length]);
+
 
   const handleSubmit = async (prompt: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
@@ -184,13 +194,13 @@ export default function ChatwithKYemon() {
           <video
             ref={videoRef}
             key={isMobile ? 'mobile' : 'desktop'}
+            autoPlay
             loop
             playsInline
             muted={false}
             preload="auto"
             crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
-            onCanPlay={() => { if (videoRef.current) videoRef.current.play().catch(() => {}); }}
           >
             <source src={isMobile ? "/backgrounds/fictionmobile.mp4" : "/backgrounds/fictionbg.mp4"} type="video/mp4" />
           </video>
