@@ -81,6 +81,7 @@ export default function ChatwithKYemon() {
   }, [loaded, messages.length]);
 
 
+
   const handleSubmit = async (message: string) => {
     if (!selectedCharacter) return; // ensure a character is selected
 
@@ -207,9 +208,10 @@ export default function ChatwithKYemon() {
               <video
                 ref={videoRef}
                 key="mobile"
+                autoPlay
                 loop
                 playsInline
-                muted={true}
+                muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 onCanPlay={() => {
@@ -236,7 +238,7 @@ export default function ChatwithKYemon() {
                 key="desktop"
                 loop
                 playsInline
-                muted={true}
+                muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 onCanPlay={() => {
