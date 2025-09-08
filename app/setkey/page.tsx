@@ -27,7 +27,7 @@ export default function SetKeyPage() {
       setSavedKey(apiKey.trim());
       setApiKey('');
       resetMessageCount(); // Reset message count when API key is set
-      router.push('/chats/anime');
+      router.push('/chat/anime');
     } else {
       toast.error('Please enter a valid API key.');
     }

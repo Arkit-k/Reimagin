@@ -12,7 +12,7 @@ setInterval(() => {
   const now = Date.now();
   for (const [key, timestamp] of rateLimit.entries()) {
     // Remove entries older than 1 hour
-    if (now - (timestamp || 0) > 60 * 60 * 1000) {
+    if (now - (timestamp || 0) > 60 * 60 * 100) {
       rateLimit.delete(key);
     }
   }
@@ -41,7 +41,7 @@ export async function OPTIONS(req: NextRequest) {
   const allowedOrigins = [
     'https://reimagin.xyz',
     'https://www.reimagin.xyz',
-    'https://reimagine-mruj.vercel.app'
+    'https://reimagine-7fzc.vercel.app'
   ];
 
   const response = new Response(null, { status: 200 });
@@ -63,8 +63,7 @@ export async function POST(req: NextRequest) {
     const allowedOrigins = [
       'https://reimagin.xyz',
       'https://www.reimagin.xyz',
-      'https://reimagine-7fzc.vercel.app',
-      'https://reimagine-mruj.vercel.app'
+      'https://reimagine-7fzc.vercel.app'
     ];
 
     if (origin && !allowedOrigins.includes(origin)) {
