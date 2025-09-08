@@ -22,12 +22,15 @@ const menuItems = [
 export default function HeroSection() {
     const [menuState, setMenuState] = React.useState(false)
     const [isMobile, setIsMobile] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const videoRef = useRef<HTMLVideoElement>(null)
+    const loadingVideoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 1024px)');
         const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
             setIsMobile(e.matches);
+            setIsLoading(e.matches); // Loading only on mobile
         };
         checkMobile(mediaQuery);
         mediaQuery.addEventListener('change', checkMobile);
@@ -48,7 +51,7 @@ export default function HeroSection() {
                                     aria-label="home"
                                     className="flex items-center space-x-2">
                                     <Image src={Logo} width={50} height={50} alt='logo' />
-                                    <span className="text-white text-lg font-semibold">Reimagin AI</span>
+                                    <span className="text-primary text-lg font-semibold">Reimagin AI</span>
                                 </Link>
 
                                 <div className="flex w-fit flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6 lg:hidden">
@@ -93,22 +96,41 @@ export default function HeroSection() {
                 </nav>
             </header>
             <main className="overflow-hidden">
-                <section className="relative flex flex-col justify-end hero-bg" style={{ minHeight: '100vh' }}>
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        muted
-                        loop
-                        className="absolute inset-0 w-full h-full object-cover z-10"
-                        onLoadedMetadata={() => {
-                            if (videoRef.current) {
-                                const duration = videoRef.current.duration
-                                videoRef.current.currentTime = Math.max(0, duration - 3)
-                            }
-                        }}
-                    >
-                        <source src={isMobile ? "/backgrounds/heromobile.mp4" : "/backgrounds/herobg.mp4"} type="video/mp4" />
-                    </video>
+                <section className="relative flex flex-col justify-end" style={{ minHeight: '100vh' }}>
+                    {isLoading && (
+                        <video
+                            ref={loadingVideoRef}
+                            autoPlay
+                            muted
+                            loop={false}
+                            className="absolute inset-0 w-full h-full object-cover z-10"
+                            onEnded={() => setIsLoading(false)}
+                            onTimeUpdate={() => {
+                                if (loadingVideoRef.current && loadingVideoRef.current.currentTime >= loadingVideoRef.current.duration - 0.1) {
+                                    setIsLoading(false);
+                                }
+                            }}
+                        >
+                            <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
+                        </video>
+                    )}
+                    {!isLoading && (
+                        <video
+                            ref={videoRef}
+                            autoPlay
+                            muted
+                            loop
+                            className="absolute inset-0 w-full h-full object-cover z-10"
+                            onLoadedMetadata={() => {
+                                if (videoRef.current) {
+                                    const duration = videoRef.current.duration
+                                    videoRef.current.currentTime = Math.max(0, duration - 3)
+                                }
+                            }}
+                        >
+                            <source src={isMobile ? "/backgrounds/heromobile.mp4" : "/backgrounds/herobg.mp4"} type="video/mp4" />
+                        </video>
+                    )}
                     <div className="relative pb-32 lg:pb-36 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
                             <div className="text-center sm:mx-auto sm:w-10/12 lg:mr-auto lg:mt-0 lg:w-4/5">
