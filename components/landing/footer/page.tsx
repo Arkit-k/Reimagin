@@ -27,7 +27,7 @@ export default function FooterSection() {
                     className="mx-auto flex items-center justify-center gap-0">
 
                     <Image src={Logo} width={100} height={100} alt="logo" />
-                    <span className="text-xl font-extrabold">Reimagin ai</span>
+                    <span className="text-xl font-extrabold text-primary">Reimagin ai</span>
 
                 </Link>
 
