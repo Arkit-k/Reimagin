@@ -184,16 +184,11 @@ export default function ChatwithKYemon() {
             ref={videoRef}
             key={isMobile ? 'mobile' : 'desktop'}
             autoPlay
-            loop={isMobile}
+            loop
             playsInline
             muted={false}
             preload="auto"
             className="absolute inset-0 w-full h-full object-cover"
-            onEnded={isMobile ? undefined : (e) => {
-              const video = e.target as HTMLVideoElement;
-              video.currentTime = 1;
-              video.pause();
-            }}
           >
             <source src={isMobile ? "/backgrounds/eternalmobile.mp4" : "/backgrounds/eternalbg.mp4"} type="video/mp4" />
           </video>

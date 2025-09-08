@@ -203,14 +203,10 @@ export default function ChatwithKYemon() {
                 ref={videoRef}
                 key="desktop"
                 autoPlay
+                loop
                 playsInline
                 preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
-                onEnded={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  video.currentTime = video.duration - 0.1;
-                  video.pause();
-                }}
               >
                 <source src="/backgrounds/mainbg.mp4" type="video/mp4" />
               </video>
