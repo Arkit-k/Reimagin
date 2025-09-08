@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     // Security: Check server API key
     const serverApiKey = req.headers.get('x-api-key');
     const expectedServerKey = process.env.SERVER_API_KEY;
-    if (expectedServerKey && serverApiKey !== expectedServerKey) {
+    if (expectedServerKey && serverApiKey && serverApiKey !== expectedServerKey) {
       return new Response("Invalid server API key", { status: 401 });
     }
 
