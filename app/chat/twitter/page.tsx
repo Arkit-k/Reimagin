@@ -196,7 +196,7 @@ export default function ChatwithKYemon() {
             autoPlay
             loop
             playsInline
-            muted={false}
+            muted={true}
             preload="auto"
             crossOrigin="anonymous"
             className="absolute inset-0 w-full h-full object-cover"
