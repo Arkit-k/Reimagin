@@ -209,7 +209,7 @@ export default function ChatwithKYemon() {
                 key="mobile"
                 loop
                 playsInline
-                muted={true}
+                muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 onCanPlay={() => {
@@ -236,7 +236,7 @@ export default function ChatwithKYemon() {
                 key="desktop"
                 loop
                 playsInline
-                muted={true}
+                muted={false}
                 preload="auto"
                 crossOrigin="anonymous"
                 onCanPlay={() => {
