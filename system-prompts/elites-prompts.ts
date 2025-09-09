@@ -12,7 +12,7 @@ export type ElitesCharacter = {
 };
 
 export const Elites_BACKGROUNDS = {
-  desktop: "/backgrounds/elitesbg2.mp4",
+  desktop: "/backgrounds/elitesbg.mp4",
   mobile: "/backgrounds/elitemobile.mp4"
 };
 

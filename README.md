@@ -36,7 +36,7 @@ Reimagin AI is a cutting-edge platform that empowers AI to bring your favorite c
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd reimagine
+cd reimagin
 ```
 
 2. Install dependencies:
@@ -79,7 +79,7 @@ bun dev
 ## Project Structure
 
 ```
-reimagine/
+reimagin/
 ├── app/                    # Next.js app directory
 │   ├── api/chat/          # Chat API routes
 │   ├── chat/              # Chat pages for different themes

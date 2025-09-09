@@ -41,7 +41,8 @@ export async function OPTIONS(req: NextRequest) {
   const allowedOrigins = [
     'https://reimagin.xyz',
     'https://www.reimagin.xyz',
-    'https://reimagine-7fzc.vercel.app'
+    'https://reimagin-7fzc.vercel.app',
+    'https://reimagin-cbj8.vercel.app/'
   ];
 
   const response = new Response(null, { status: 200 });
@@ -63,7 +64,8 @@ export async function POST(req: NextRequest) {
     const allowedOrigins = [
       'https://reimagin.xyz',
       'https://www.reimagin.xyz',
-      'https://reimagine-7fzc.vercel.app'
+      'https://reimagin-7fzc.vercel.app',
+      'https://reimagin-cbj8.vercel.app/'
     ];
 
     if (origin && !allowedOrigins.includes(origin)) {

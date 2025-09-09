@@ -1,17 +1,11 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, EffectCoverflow } from 'swiper/modules'
-import Image from 'next/image'
-import 'swiper/css'
-import 'swiper/css/autoplay'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/effect-coverflow'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import  Logo  from '@/public/image/Logo.png'
-import { ArrowRight, Menu, Rocket, X } from 'lucide-react'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import  Logo  from '@/public/image/Logo.png'
+import { Menu, Rocket, X } from 'lucide-react'
 
 const menuItems = [
     { name: 'Features', href: '#FeaturesSection' },
@@ -20,19 +14,17 @@ const menuItems = [
 ]
 
 export default function HeroSection() {
-    const [menuState, setMenuState] = React.useState(false)
+    const [menuState, setMenuState] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
     const [mobileChecked, setMobileChecked] = useState(false)
-    const videoRef = useRef<HTMLVideoElement>(null)
-    const loadingVideoRef = useRef<HTMLVideoElement>(null)
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 1024px)');
         const checkMobile = (e: MediaQueryList | MediaQueryListEvent) => {
             setIsMobile(e.matches);
-            setIsLoading(e.matches); // Loading only on mobile
             setMobileChecked(true);
+            setLoaded(true);
         };
         checkMobile(mediaQuery);
         mediaQuery.addEventListener('change', checkMobile);
@@ -99,49 +91,34 @@ export default function HeroSection() {
             </header>
             <main className="overflow-hidden">
                 <section className="relative flex flex-col justify-end" style={{ minHeight: '100vh' }}>
-                    {mobileChecked && isLoading && (
-                        <video
-                            ref={loadingVideoRef}
-                            autoPlay
-                            muted
-                            loop={false}
-                            className="absolute inset-0 w-full h-full object-cover z-10"
-                            onEnded={() => setIsLoading(false)}
-                            onTimeUpdate={() => {
-                                if (loadingVideoRef.current && loadingVideoRef.current.duration && loadingVideoRef.current.currentTime >= loadingVideoRef.current.duration - 0.1) {
-                                    setIsLoading(false);
-                                }
-                            }}
-                            onLoadedData={() => {
-                                // Ensure video starts playing
-                                if (loadingVideoRef.current) {
-                                    loadingVideoRef.current.play().catch(() => {});
-                                }
-                            }}
-                            onError={() => {
-                                // If loading video fails, skip to main video
-                                setIsLoading(false);
-                            }}
-                        >
-                            <source src={isMobile ? "/backgrounds/loadingmobile.mp4" : "/backgrounds/loadingbg.mp4"} type="video/mp4" />
-                        </video>
-                    )}
-                    {mobileChecked && !isLoading && (
-                        <video
-                            ref={videoRef}
-                            autoPlay
-                            muted
-                            loop
-                            className="absolute inset-0 w-full h-full object-cover z-10"
-                            onLoadedMetadata={() => {
-                                if (videoRef.current) {
-                                    const duration = videoRef.current.duration
-                                    videoRef.current.currentTime = Math.max(0, duration - 3)
-                                }
-                            }}
-                        >
-                            <source src={isMobile ? "/backgrounds/heromobile.mp4" : "/backgrounds/herobg.mp4"} type="video/mp4" />
-                        </video>
+                    {loaded && (
+                        <>
+                            {isMobile ? (
+                                <video
+                                    autoPlay
+                                    loop
+                                    playsInline
+                                    muted={false}
+                                    preload="auto"
+                                    crossOrigin="anonymous"
+                                    className="absolute inset-0 w-full h-full object-cover z-10"
+                                >
+                                    <source src="/backgrounds/heromobile2.mp4" type="video/mp4" />
+                                </video>
+                            ) : (
+                                <video
+                                    autoPlay
+                                    loop
+                                    playsInline
+                                    muted={true}
+                                    preload="auto"
+                                    crossOrigin="anonymous"
+                                    className="absolute inset-0 w-full h-full object-cover z-10"
+                                >
+                                    <source src="/backgrounds/herobg.mp4" type="video/mp4" />
+                                </video>
+                            )}
+                        </>
                     )}
                     <div className="relative pb-32 lg:pb-36 z-20">
                         <div className="mx-auto max-w-7xl px-6 md:px-12">
