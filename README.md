@@ -132,7 +132,7 @@ This app can be easily deployed on Vercel:
 
 ## License
 
-This project is private and proprietary.
+This project is open source
 
 ## Support
 
