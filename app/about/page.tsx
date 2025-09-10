@@ -60,7 +60,7 @@ export default function AboutPage() {
             <h3 className="text-xl md:text-2xl font-semibold mb-6 text-white">The Inspiration Behind Reimagin AI Chat</h3>
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
-                The idea for Reimagine AI Chat was born from my fascination with both anime culture and artificial intelligence.
+                The idea for Reimagin AI Chat was born from my fascination with both anime culture and artificial intelligence.
                 I&apos;ve always been captivated by the rich storytelling and diverse characters in anime series,
                 and I wondered what it would be like to have conversations with these iconic personalities.
               </p>

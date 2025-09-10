@@ -78,7 +78,7 @@ export default function Home() {
         <div className={`absolute inset-0 flex items-center justify-center z-10 transition-opacity duration-1000 px-4 ${showWelcomeText ? 'opacity-100' : 'opacity-0'}`}>
           <div className="text-center max-w-sm mx-auto">
             <h1 className="text-white md:text-stone-900 text-3xl sm:text-4xl md:text-6xl font-bold mb-2">
-              welcome to <span className='text-primary'> Reimagine ai</span>
+              welcome to <span className='text-primary'> Reimagin ai</span>
             </h1>
           </div>
         </div>

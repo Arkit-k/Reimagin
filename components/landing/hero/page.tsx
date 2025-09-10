@@ -134,7 +134,7 @@ export default function HeroSection() {
                                 </Link>
 
                                 <h1 className="mt-8 text-4xl text-white font-semibold md:text-5xl xl:text-5xl xl:[line-height:1.125]">
-                                   <span className='text-primary'>Reimagine</span> is Empowering AI to imagine <br /> and chat with Characters
+                                   <span className='text-primary'>Reimagin</span> is Empowering AI to imagine <br /> and chat with Characters
                                 </h1>
                                 <p className="mx-auto mt-8 hidden max-w-2xl text-white text-wrap text-lg sm:block">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>
                                 <p className="mx-auto mt-6 max-w-2xl text-white text-wrap sm:hidden">Transform your favorite characters into interactive companions. Experience AI-powered chats that bring anime, fiction, and legendary figures to life in your conversations.</p>
