@@ -254,7 +254,7 @@ export default function ChatwithKYemon() {
                 }}
                 className="absolute inset-0 w-full h-full object-cover"
               >
-                <source src="/backgrounds/eternalbg.mp4" type="video/mp4" />
+                <source src="/backgrounds/eternalbg2.mp4" type="video/mp4" />
               </video>
             )}
           </>
