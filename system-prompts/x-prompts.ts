@@ -17,7 +17,7 @@ interface Author{
 }
 
 export const X_BACKGROUNDS = {
-  desktop: "/backgrounds/twitterbg.jpg",
+  desktop: "/backgrounds/twitterbg3.jpg",
   mobile: "/backgrounds/twittermobile.jpeg"
 };
 
